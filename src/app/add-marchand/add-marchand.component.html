@@ -1,0 +1,121 @@
+<nz-layout class="layout">
+  <nz-content>
+
+    <div class="">
+
+      <div nz-col nzSpan="16" class="register" style="
+      left: 20%;
+      background-color: white; padding: 20px;">
+        <div nz-row>
+          <div nz-col nzSpan="8">
+            <img nz-image height="600px" nzSrc="assets/login.jpg" alt="" />
+          </div>
+          <div nz-col nzSpan="15" style="padding-left: 30px;">
+            <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+              <!-- Nom Complet -->
+              <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="nom">Nom</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Nom Obligatoir!">
+                  <input nz-input id="nom" />
+                </nz-form-control>
+              </nz-form-item>
+              <!-- Adress -->
+              <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="adress">Adress</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Adress Obligatoir!">
+                  <input nz-input id="adress" />
+                </nz-form-control>
+              </nz-form-item>
+              <!-- CIN -->
+              <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="cin">CIN</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="CIN Obligatoir!">
+                  <input nz-input id="cin" />
+                </nz-form-control>
+              </nz-form-item>
+              <!-- TEL -->
+              <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber" nzRequired>Phone Number</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="validateForm.controls['phoneNumber']"
+                  nzErrorTip="Please input your phone number!">
+                  <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
+                    <ng-template #addOnBeforeTemplate>
+                      <nz-select formControlName="phoneNumberPrefix" class="phone-select">
+                        <nz-option nzLabel="+212" nzValue="+212"></nz-option>
+                      </nz-select>
+                    </ng-template>
+                    <input formControlName="phoneNumber" id="'phoneNumber'" nz-input />
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+              <!-- DATE DE NAISSANCE -->
+              <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="datenaissance">Date de Naissance</nz-form-label>
+
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                  <nz-date-picker></nz-date-picker>
+                  <br />
+                </nz-form-control>
+              </nz-form-item>
+              <!-- Nombre d'enfant -->
+              <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="nbre">Nombre d'enfants</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                  <label label="Nombre d'enfant">
+                    <nz-input-number formControlName="weight" placeholder="Nombre d'enfants"></nz-input-number>
+                  </label>
+                </nz-form-control>
+              </nz-form-item>
+              <!-- Activiter -->
+              <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="activuter">Activiter</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Activirer Obligatoir!">
+                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selectionnez une Avtiviter">
+                    <nz-option nzLabel="Activiter1" nzValue="Activiter1"></nz-option>
+                    <nz-option nzLabel="Activiter2" nzValue="Activiter1"></nz-option>
+                    <nz-option nzLabel="Activiter3" nzValue="Activiter1"></nz-option>
+                  </nz-select>
+                </nz-form-control>
+
+              </nz-form-item>
+              <!-- Status -->
+              <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="12" nzFor="status" nzRequired>Status</nz-form-label>
+                <nz-form-control text-align-center [nzSm]="7" [nzXs]="12" nzErrorTip="Status Obligatoir!">
+                  <nz-switch></nz-switch>
+                </nz-form-control>
+                <nz-form-label [nzSm]="6" [nzXs]="12" nzFor="status" nzRequired>Service</nz-form-label>
+                <nz-form-control [nzSm]="7" [nzXs]="12" nzErrorTip="Service Obligatoir!">
+                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selectionnez une Avtiviter">
+                    <nz-option nzLabel="Activiter1" nzValue="1"></nz-option>
+                    <nz-option nzLabel="Activiter2" nzValue="2"></nz-option>
+                    <nz-option nzLabel="Activiter3" nzValue="3"></nz-option>
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+
+              <!-- Sold -->
+              <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="nom">Sold e courant</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Sold Obligatoir!">
+                  <input nz-input id="soldcourant" />
+                </nz-form-control>
+              </nz-form-item>
+
+
+
+              <nz-form-item nz-row class="register-area">
+                <nz-form-control [nzSpan]="14" [nzOffset]="6">
+                  <button nz-button nzType="primary">Ajouter</button>
+                </nz-form-control>
+              </nz-form-item>
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </nz-content>
+
+</nz-layout>
