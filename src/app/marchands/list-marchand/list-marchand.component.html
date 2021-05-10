@@ -1,0 +1,67 @@
+
+     <nz-input-group [nzSuffix]="suffixIconSearch">
+      <input type="text" #searchText nz-input placeholder="input search text"  Green   (keyup.enter)="search(searchText.value)"/>
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <i nz-icon nzType="search"></i>
+    </ng-template>
+    <button nz-button nzType="primary" routerLink ='/addmarchand'>Ajouter Marchand</button>
+
+        <div class="inner-content">
+            <nz-table #editRowTable #headerTable nzBordered [nzData]="listOfData" [nzPageSize]="6" [nzScroll]="{ y: '640px' }">
+                <thead>
+                  <tr>
+                    <th >Matricule</th>
+                    <th>Nom Complet</th>
+                    <th nzWidth="200px">Address</th>
+                    <th >CIN</th>
+                    <th>N° Telephone</th>
+                    <th>Activiter</th>
+                    <th>Status</th>
+                    <th >Date de Naissance</th>
+                    <th >Solde</th>
+                    <th >Service</th>
+                    <th nzWidth="90px">Details</th>
+                    <th nzWidth="90px">Modifier</th>
+                    <th nzWidth="90px">suprimer</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of service.list">
+                    <ng-container >
+                        <td>{{ data.matricule }}</td>
+                      <td>{{ data.nom }}</td>
+                      <td>{{ data.adress }}</td>
+                      <td>{{ data.cin }}</td>
+                      <td>{{ data.ntel }}</td>
+                      <td>{{ data.activiter }}</td>
+                      <td>{{ data.status }}</td>
+                      <td>{{ data.datenaissance }}</td>
+                      <td>{{ data.soldecourant }}</td>
+                      <td>{{ data.service }}</td>
+                      <td><a ><i nz-icon nzType="eye" nzTheme="outline"></i></a></td>
+                      <td><a [routerLink]="['/addmarchand',data.id]"><i nz-icon nzType="edit" nzTheme="outline" (click)="EditMarchand(data)"></i></a></td>
+                      <td><a ><i nz-icon nzType="delete" nzTheme="outline"></i></a></td>
+                    </ng-container>
+                    <ng-template #editTemplate>
+                      <td><input type="text" nz-input /></td>
+                      <td><input type="text" nz-input  /></td>
+                      <td><input type="text" nz-input  /></td>
+                      <td><input type="text" nz-input  /></td>
+                      <td><input type="text"  /></td>
+                      <td><input type="text" nz-input  /></td>
+                      <td><input type="text" nz-input  /></td>
+                      <td><input type="text" nz-input /></td>
+                      <td><input type="text" nz-input  /></td>
+                      <td><input type="text" nz-input  /></td>
+                      <td>
+                        <a class="save">Enrgistrer</a>
+                        <a nz-popconfirm nzPopconfirmTitle="vous etes sur?" >Annuler</a>
+                      </td>
+                    </ng-template>
+                  </tr>
+                </tbody>
+              </nz-table>
+          
+        </div>
+  

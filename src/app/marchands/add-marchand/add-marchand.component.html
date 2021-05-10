@@ -1,50 +1,55 @@
-<nz-layout class="layout">
-  <nz-content>
 
-    <div class="">
-
-      <div nz-col nzSpan="16" class="register" style="
-      left: 20%;
-      background-color: white; padding: 20px;">
+    <div class="flex-container">
+      <div nz-col class="register" style="
+      padding: 20px;">
         <div nz-row>
-          <div nz-col nzSpan="8">
-            <img nz-image height="600px" nzSrc="assets/login.jpg" alt="" />
+          <div nz-col  nzFlex="1 2 300px"  >
+            <img nz-image zFlex="auto" nzSrc="assets/login.png" alt="" style="  max-width: 100%;
+            max-height: 100%;" />
           </div>
-          <div nz-col nzSpan="15" style="padding-left: 30px;">
-            <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+          <div nz-col  nzFlex="auto" style="padding-left: 30px;">
+            <form nz-form #form="ngForm" (ngSubmit)="onSubmit(form.value)">
+                   
+              <!-- Matricule -->
+              <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="nom">Matricule</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Nom Obligatoir!">
+                  <input nz-input id="matricule" name="matricule" [(ngModel)]="service.FormData.matricule" />
+                </nz-form-control>
+              </nz-form-item>
               <!-- Nom Complet -->
               <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="nom">Nom</nz-form-label>
+                <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="nom">Nom</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Nom Obligatoir!">
-                  <input nz-input id="nom" />
+                  <input nz-input id="nom" name="nom" [(ngModel)]="service.FormData.nom" />
                 </nz-form-control>
               </nz-form-item>
               <!-- Adress -->
               <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="adress">Adress</nz-form-label>
+                <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="adress">Adress</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Adress Obligatoir!">
-                  <input nz-input id="adress" />
+                  <input nz-input id="adress" name="adress" [(ngModel)]="service.FormData.adress">
                 </nz-form-control>
               </nz-form-item>
               <!-- CIN -->
               <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="cin">CIN</nz-form-label>
+                <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="cin">CIN</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="CIN Obligatoir!">
-                  <input nz-input id="cin" />
+                  <input nz-input id="cin"  name="cin" [(ngModel)]="service.FormData.cin"/>
                 </nz-form-control>
               </nz-form-item>
               <!-- TEL -->
               <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber" nzRequired>Phone Number</nz-form-label>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber" >Phone Number</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="validateForm.controls['phoneNumber']"
                   nzErrorTip="Please input your phone number!">
-                  <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
+                  <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate" >
                     <ng-template #addOnBeforeTemplate>
-                      <nz-select formControlName="phoneNumberPrefix" class="phone-select">
+                      <nz-select  class="phone-select">
                         <nz-option nzLabel="+212" nzValue="+212"></nz-option>
                       </nz-select>
                     </ng-template>
-                    <input formControlName="phoneNumber" id="'phoneNumber'" nz-input />
+                    <input  id="ntel"  name="ntel" [(ngModel)]="service.FormData.ntel"/>
                   </nz-input-group>
                 </nz-form-control>
               </nz-form-item>
@@ -53,7 +58,7 @@
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="datenaissance">Date de Naissance</nz-form-label>
 
                 <nz-form-control [nzSm]="14" [nzXs]="24">
-                  <nz-date-picker></nz-date-picker>
+                  <nz-date-picker id="datenaissance" name="datenaissance" [(ngModel)]="service.FormData.datenaissance"></nz-date-picker>
                   <br />
                 </nz-form-control>
               </nz-form-item>
@@ -62,15 +67,15 @@
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="nbre">Nombre d'enfants</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24">
                   <label label="Nombre d'enfant">
-                    <nz-input-number formControlName="weight" placeholder="Nombre d'enfants"></nz-input-number>
+                    <nz-input-number  placeholder="Nombre d'enfants"  id="nombreenfants"  name="nombreenfants" [(ngModel)]="service.FormData.nombreenfants"></nz-input-number>
                   </label>
                 </nz-form-control>
               </nz-form-item>
               <!-- Activiter -->
               <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="activuter">Activiter</nz-form-label>
+                <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="activiter">Activiter</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Activirer Obligatoir!">
-                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selectionnez une Avtiviter">
+                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selectionnez une Avtiviter" id="activiter"  name="activiter" [(ngModel)]="service.FormData.activiter" >
                     <nz-option nzLabel="Activiter1" nzValue="Activiter1"></nz-option>
                     <nz-option nzLabel="Activiter2" nzValue="Activiter1"></nz-option>
                     <nz-option nzLabel="Activiter3" nzValue="Activiter1"></nz-option>
@@ -80,13 +85,13 @@
               </nz-form-item>
               <!-- Status -->
               <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="12" nzFor="status" nzRequired>Status</nz-form-label>
+                <nz-form-label [nzSm]="6" [nzXs]="12" nzFor="status" >Status</nz-form-label>
                 <nz-form-control text-align-center [nzSm]="7" [nzXs]="12" nzErrorTip="Status Obligatoir!">
-                  <nz-switch></nz-switch>
+                  <nz-switch id="status"  name="activiter" [(ngModel)]="service.FormData.status" ></nz-switch>
                 </nz-form-control>
-                <nz-form-label [nzSm]="6" [nzXs]="12" nzFor="status" nzRequired>Service</nz-form-label>
+                <nz-form-label [nzSm]="6" [nzXs]="12" nzFor="status" >Service</nz-form-label>
                 <nz-form-control [nzSm]="7" [nzXs]="12" nzErrorTip="Service Obligatoir!">
-                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selectionnez une Avtiviter">
+                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selectionnez une Avtiviter"id="service"  name="service" [(ngModel)]="service.FormData.service" >
                     <nz-option nzLabel="Activiter1" nzValue="1"></nz-option>
                     <nz-option nzLabel="Activiter2" nzValue="2"></nz-option>
                     <nz-option nzLabel="Activiter3" nzValue="3"></nz-option>
@@ -96,9 +101,9 @@
 
               <!-- Sold -->
               <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="nom">Sold e courant</nz-form-label>
+                <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="nom">Sold e courant</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Sold Obligatoir!">
-                  <input nz-input id="soldcourant" />
+                  <input nz-input id="soldcourant" id="soldecourant"  name="soldecourant" [(ngModel)]="service.FormData.soldecourant" />
                 </nz-form-control>
               </nz-form-item>
 
@@ -106,7 +111,7 @@
 
               <nz-form-item nz-row class="register-area">
                 <nz-form-control [nzSpan]="14" [nzOffset]="6">
-                  <button nz-button nzType="primary">Ajouter</button>
+                  <button nz-button nzType="primary" type="submit">Ajouter</button>
                 </nz-form-control>
               </nz-form-item>
             </form>
@@ -115,7 +120,5 @@
         </div>
 
       </div>
-    </div>
-  </nz-content>
 
-</nz-layout>
+    </div>

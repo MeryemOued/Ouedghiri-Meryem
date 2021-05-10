@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddMarchandComponent } from './add-marchand/add-marchand.component';
-import { ListMarchandComponent } from './list-marchand/list-marchand.component';
+import { AddMarchandComponent } from './marchands/add-marchand/add-marchand.component';
+import { ListMarchandComponent } from './marchands/list-marchand/list-marchand.component';
 
-const routes: Routes = [  { path: 'addmarchand', component: AddMarchandComponent },{ path: 'listmarchand', component: ListMarchandComponent }
+const routes: Routes = [
+  { path: 'addmarchand', component: AddMarchandComponent },
+  { path: 'listmarchand', component: ListMarchandComponent },
+  { path: 'addmarchand/:id', component: AddMarchandComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

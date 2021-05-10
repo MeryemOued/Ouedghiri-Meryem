@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Marchand } from 'src/app/shared/marchand.model';
+import { MarchandService } from 'src/app/shared/marchand.service';
 interface ItemData {
   id: string;
   matricul: string;
@@ -24,7 +26,8 @@ export class ListMarchandComponent implements OnInit {
   listOfData: ItemData[] = [];
 
   isCollapsed = false;
-  constructor() {}
+  constructor(public service: MarchandService,private route:ActivatedRoute,private router :Router) {}
+
   startEdit(id: string): void {
     this.editCache[id].edit = true;
   }
@@ -49,6 +52,8 @@ export class ListMarchandComponent implements OnInit {
     ];
     this.i++;
   }
+  marchandObj:any
+    // NAVIGATE TO ADD MARCHAND WITH DATA
 
   cancelEdit(id: string): void {
     const index = this.listOfData.findIndex((item) => item.id === id);
@@ -73,25 +78,18 @@ export class ListMarchandComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    const data = [];
-    for (let i = 0; i < 100; i++) {
-      data.push({
-        id: `${i}`,
-        nom: `Ouedghiri Mohamed ${i}`,
-        adress: `Qte Dakhla Rue Ahram N24`,
-        cin: 'FA15268',
-        ntel: '0670957962',
-        activiter: 'Boucherie',
-        status: 'active',
-        datenaissance: new Date('dd/mm/yyyy'),
-        matricul: '10265',
-        soldecourant: 2500.9,
-        service: `QODS`,
-      });
-    }
-    this.listOfData = data;
+this.service.refreshTable();
+
     this.updateEditCache();
   }
+  EditMarchand(selectedRow :Marchand){
+    this.service.FormData=selectedRow;
+    // this.router.navigate(['/addmarchand']),{
+    //   queryParams:{}
+    // }
+
+    // console.log(this.marchandObj.nom);
+    }
   copylistOfData = [...this.listOfData];
 
   search(search: any) {

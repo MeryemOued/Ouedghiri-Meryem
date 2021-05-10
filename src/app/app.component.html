@@ -1,13 +1,45 @@
 <!-- <app-list-marchand></app-list-marchand> -->
 <!-- <app-add-marchand> </app-add-marchand> -->
-<nz-header>
-  <div class="logo"></div>
+<!-- <nz-header> -->
+  <!-- <div class="logo"></div>
   <ul nz-menu nzTheme="dark" nzMode="horizontal">
     <li nz-menu-item>Accuille</li>
     <li nz-menu-item routerLink="/listmarchand">Dashboard</li>
     <li nz-menu-item routerLink="/addmarchand">Ajouter Marchand</li>
 
   </ul>
-</nz-header>
-<router-outlet></router-outlet>
+</nz-header> -->
+<nz-layout class="layout">
+  <nz-sider nzCollapsible nzBreakpoint="lg" [nzCollapsedWidth]="0">
+    <div class="logo"></div>
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      <li nz-menu-item routerLink="/listmarchand">
+        <i nz-icon nzType="user"></i>
+        <span>List Marchand</span>
+      </li>
+      <li nz-menu-item routerLink="/addmarchand">
+        <i nz-icon nzType="user"></i>
+        <span>Ajouter Marchand</span>
+      </li>
+      <li nz-menu-item>
+        <i nz-icon nzType="upload"></i>
+        <span>nav 3</span>
+      </li>
+      <li nz-menu-item>
+        <i nz-icon nzType="user"></i>
+        <span>nav 4</span>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header></nz-header>
+    <nz-content>
+      <div class="inner-content">
+
+        <router-outlet></router-outlet>      </div>
+    </nz-content>
+    <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
+  </nz-layout>
+</nz-layout>
+
 <!-- <app-step-form></app-step-form> -->

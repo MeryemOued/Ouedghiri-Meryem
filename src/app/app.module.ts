@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ListMarchandComponent } from './list-marchand/list-marchand.component';
+import { ListMarchandComponent } from './marchands/list-marchand/list-marchand.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { registerLocaleData } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -19,9 +19,11 @@ import { IconDefinition } from '@ant-design/icons-angular';
 import * as AllIcons from '@ant-design/icons-angular/icons';
 
 import { DemoNgZorroAntdModule } from './ng-zorro-antd.module';
-import { AddMarchandComponent } from './add-marchand/add-marchand.component';
+import { AddMarchandComponent } from './marchands/add-marchand/add-marchand.component';
 import fr from '@angular/common/locales/fr';
 import { LoginComponent } from './login/login.component';
+import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
+import { MarchandService } from './shared/marchand.service';
 
 registerLocaleData(fr);
 const antDesignIcons = AllIcons as {
@@ -46,9 +48,10 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     DemoNgZorroAntdModule,
     BrowserAnimationsModule,
     ScrollingModule,
-    DragDropModule
+    DragDropModule,
+    NgZorroAntdMobileModule
   ],
-  providers: [ { provide: NZ_I18N, useValue: fr_FR},{ provide: NZ_ICONS, useValue: icons }],
+  providers: [ { provide: NZ_I18N, useValue: fr_FR},{ provide: NZ_ICONS, useValue: icons },MarchandService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
