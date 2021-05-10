@@ -8,7 +8,7 @@
             max-height: 100%;" />
           </div>
           <div nz-col  nzFlex="auto" style="padding-left: 30px;">
-            <form nz-form #form="ngForm" (ngSubmit)="onSubmit(form.value)">
+            <form autocomplete="off" nz-form #form="ngForm" (ngSubmit)="onSubmit(form.value)">
                    
               <!-- Matricule -->
               <nz-form-item>
@@ -107,14 +107,23 @@
                 </nz-form-control>
               </nz-form-item>
 
-
+<!-- BUTTON ADD -->
 
               <nz-form-item nz-row class="register-area">
                 <nz-form-control [nzSpan]="14" [nzOffset]="6">
                   <button nz-button nzType="primary" type="submit">Ajouter</button>
                 </nz-form-control>
               </nz-form-item>
-            </form>
+            
+            
+<!-- BUTTON update -->
+
+<!-- <nz-form-item nz-row class="register-area">
+  <nz-form-control [nzSpan]="14" [nzOffset]="6">
+    <button nz-button nzType="primary"(click)="UpdateRow(form.value)">Modifier</button>
+  </nz-form-control>
+</nz-form-item> -->
+</form>
 
           </div>
         </div>

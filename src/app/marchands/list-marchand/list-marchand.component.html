@@ -1,10 +1,5 @@
 
-     <nz-input-group [nzSuffix]="suffixIconSearch">
-      <input type="text" #searchText nz-input placeholder="input search text"  Green   (keyup.enter)="search(searchText.value)"/>
-    </nz-input-group>
-    <ng-template #suffixIconSearch>
-      <i nz-icon nzType="search"></i>
-    </ng-template>
+
     <button nz-button nzType="primary" routerLink ='/addmarchand'>Ajouter Marchand</button>
 
         <div class="inner-content">
@@ -13,17 +8,17 @@
                   <tr>
                     <th >Matricule</th>
                     <th>Nom Complet</th>
-                    <th nzWidth="200px">Address</th>
+                    <th >Address</th>
                     <th >CIN</th>
-                    <th>N° Telephone</th>
+                    <th >N° Telephone</th>
                     <th>Activiter</th>
                     <th>Status</th>
                     <th >Date de Naissance</th>
                     <th >Solde</th>
                     <th >Service</th>
-                    <th nzWidth="90px">Details</th>
-                    <th nzWidth="90px">Modifier</th>
-                    <th nzWidth="90px">suprimer</th>
+                    <th nzWidth="70px">Details</th>
+                    <th nzWidth="70px">Modifier</th>
+                    <th nzWidth="70px">suprimer</th>
                   </tr>
                 </thead>
                 <tbody>

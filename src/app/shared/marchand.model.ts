@@ -1,6 +1,6 @@
 
 export class Marchand {
-   id?:string;
+    id?:number;
     matricule?: string;
     nom: string;
     adress?: string="";

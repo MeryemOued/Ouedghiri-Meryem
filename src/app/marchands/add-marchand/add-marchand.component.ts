@@ -1,3 +1,4 @@
+import { formatCurrency } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -39,36 +40,44 @@ export class AddMarchandComponent implements OnInit {
     private route:ActivatedRoute,
     private router :Router
   ) {}
-onSubmit(form:NgForm){
-  console.log("onsubmite")
 
-  this.service.createService().subscribe(res=>{
+
+
+onSubmit(form:NgForm){
+if(this.service.FormData.id==0)
+this.insertRow(form);
+else
+this.UpdateRow(form)
+console.log("exist")
+}
+
+insertRow(form:NgForm){
+  console.log("onsubmite")
+  this.service.createService().subscribe(
+    res=>{
+      this.resetForm(form);
+      this.service.refreshTable();
   },
   err=>{console.log(err);}
     )
 }
-
-
+UpdateRow(form:NgForm){
+  console.log("put")
+  this.service.putService().subscribe(res=>{
+    this.resetForm(form);
+    this.service.refreshTable();
+  },
+  err=>{console.log(err);}
+    )
+}
+resetForm(form:NgForm){
+  form.form.reset();
+  this.service.FormData=new Marchand();
+}
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       phoneNumberPrefix: ['+212'],
       phoneNumber: [null, [Validators.required]],
       agree: [false],
     });
-    localStorage.setItem('nom', 'value');
-      // GET ID FROM LIST-MARCHAND
-//       let id = this.route.snapshot.paramMap.get("id");
-//       this.marchandObj.nom =id+"";
-// console.log(id+"ID");
-this.route.queryParams.subscribe((params)=>{
-  console.log("DATA IS" +params)
-})
-let data = this.route.snapshot.params;
-console.log("DATA IS" +data)
-//       this.marchandObj.nom =id+"";
-  }
-  
-
-
-
-}
+}}

@@ -14,14 +14,24 @@ export class MarchandService {
    list:Marchand[];
 
 
-   createService(){
-     return this.httpClient.post(this.baseURL,this.FormData);
-   }
 refreshTable(){
   this.httpClient.get(this.baseURL)
   .toPromise()
   .then(res=>this.list=res as Marchand[]);
 }
+
+
+createService(){
+     return this.httpClient.post(this.baseURL,this.FormData);
+   }
+
+putService(){
+  console.log(this.FormData.id)
+    return this.httpClient.put(`${this.baseURL}/${this.FormData.id}`,this.FormData);
+  }
+
+
+
 
 
 }
