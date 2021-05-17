@@ -25,8 +25,6 @@ import { LoginComponent } from './login/login.component';
 import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
 import { MarchandService } from './shared/marchand.service';
 import { PipefilterPipe } from './pipefilter.pipe';
-import { LayoutComponent } from './layout/layout.component';
-import { LayoutDashboardComponent } from './layout-dashboard/layout-dashboard.component';
 
 registerLocaleData(fr);
 const antDesignIcons = AllIcons as {
@@ -40,8 +38,6 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     AddMarchandComponent,
     LoginComponent,
     PipefilterPipe,
-    LayoutComponent,
-    LayoutDashboardComponent,
     
   ],
   imports: [
