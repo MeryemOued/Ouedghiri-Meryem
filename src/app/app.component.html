@@ -1,45 +1,43 @@
-<!-- <app-list-marchand></app-list-marchand> -->
-<!-- <app-add-marchand> </app-add-marchand> -->
-<!-- <nz-header> -->
-  <!-- <div class="logo"></div>
-  <ul nz-menu nzTheme="dark" nzMode="horizontal">
-    <li nz-menu-item>Accuille</li>
-    <li nz-menu-item routerLink="/listmarchand">Dashboard</li>
-    <li nz-menu-item routerLink="/addmarchand">Ajouter Marchand</li>
-
-  </ul>
-</nz-header> -->
-<nz-layout class="layout">
-  <nz-sider nzCollapsible nzBreakpoint="lg" [nzCollapsedWidth]="0">
+<!-- NG-ZORRO -->
+<!-- <a target="_blank" style="display: flex;align-items: center;justify-content: center;height: 100%;width: 100%;">
+</a> -->
+<!-- <nz-layout class="layout">
+  <nz-sider nzCollapsible nzBreakpoint="lg" [nzCollapsedWidth]="0" class="nz-sider">
     <div class="logo"></div>
     <ul nz-menu nzTheme="dark" nzMode="inline">
-      <li nz-menu-item routerLink="/listmarchand">
-        <i nz-icon nzType="user"></i>
-        <span>List Marchand</span>
-      </li>
-      <li nz-menu-item routerLink="/addmarchand">
-        <i nz-icon nzType="user"></i>
-        <span>Ajouter Marchand</span>
-      </li>
-      <li nz-menu-item>
-        <i nz-icon nzType="upload"></i>
-        <span>nav 3</span>
+
+      <li nz-submenu nzTitle="Marchand" nzIcon="user">
+        <ul>
+          <li nz-menu-item routerLink ='/addmarchand'><i nz-icon nzType="plus" nzTheme="outline"></i>Nouveau</li>
+          <li nz-menu-item routerLink ='/listmarchand'><i nz-icon nzType="unordered-list" nzTheme="outline"></i>Liste</li>
+        </ul>
       </li>
       <li nz-menu-item>
-        <i nz-icon nzType="user"></i>
-        <span>nav 4</span>
+        <i nz-icon nzType="minus"></i>
+        <span>Resirvation</span>
       </li>
+      <li nz-menu-item>
+        <i nz-icon nzType="minus"></i>
+        <span>Position</span>
+      </li>
+ 
     </ul>
   </nz-sider>
   <nz-layout>
     <nz-header></nz-header>
     <nz-content>
       <div class="inner-content">
-
-        <router-outlet></router-outlet>      </div>
+        <router-outlet></router-outlet>
+      </div>
     </nz-content>
-    <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
+    <nz-footer>PCP ©2021</nz-footer>
   </nz-layout>
-</nz-layout>
+</nz-layout> -->
 
-<!-- <app-step-form></app-step-form> -->
+<!-- <div nz-row nzJustify="center" nzAlign="middle" style="text-align: center;  ">
+  <div nz-col class="gutter-row" nzSpan="10"> -->
+    
+    <router-outlet></router-outlet>
+<!-- 
+  </div>
+</div> -->

@@ -1,0 +1,56 @@
+host:port/context/api/v1/{resource} = baseUrl
+
+BaseApiService<T> {
+
+    constructor(public resource: string) {
+        this.resource = resource;
+    }
+
+    resource: string;
+    baseUrl: string;
+
+    create(T domain): T;
+    update(T domain): T;
+    getAll(): T [];
+    getById(id: number): T;
+    deleteById(id: number): void;
+
+    host:port/context/api/v1/{resource}/export/pdf
+    exportAllToPdf();
+}
+
+MarchandComponent {
+    constructor(private marchandApiService: MarchandApiService) {
+    }
+}
+
+MarchandApiService extend baseApiService<Marchand> {
+    constructor(public resource: string) {
+        this.resource = "marchand";
+    }
+
+}
+
+positionApiService extend baseApiService<Marchand> {
+    constructor(public resource: string) {
+        this.resource = "position";
+    }
+}
+
+BaseFormComp<T> {
+    T data;
+    form: FormGroup;
+
+    submit() {
+        
+    }
+
+    createDomain() {
+            from FormGroup to domain;
+}
+    createForm() {
+        from domain to FormGroup;
+    }
+    doSubmit();
+}
+BaseListComp

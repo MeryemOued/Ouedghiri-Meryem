@@ -1,6 +1,19 @@
 
 
-    <button nz-button nzType="primary" routerLink ='/addmarchand'>Ajouter Marchand</button>
+
+    <button nz-button nzType="primary" nzShape="circle" style="height: 70px; width: 70px; background-color: black;" routerLink ='/addmarchand'><i nz-icon nzType="plus" nzTheme="outline"></i></button>
+
+    <div nz-row>
+    <div nz-col nzSpan="8"></div>
+    <div nz-col nzSpan="8">    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+      <input type="text" nz-input placeholder="input search text" [(ngModel)]="matricule" />
+    </nz-input-group>
+    <ng-template #suffixIconButton>
+      <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+    </ng-template></div>
+    <div nz-col nzSpan="8"></div>
+  </div>
+
 
         <div class="inner-content">
             <nz-table #editRowTable #headerTable nzBordered [nzData]="listOfData" [nzPageSize]="6" [nzScroll]="{ y: '640px' }">
@@ -12,7 +25,7 @@
                     <th >CIN</th>
                     <th >N° Telephone</th>
                     <th>Activiter</th>
-                    <th>Status</th>
+                    <th >Status</th>
                     <th >Date de Naissance</th>
                     <th >Solde</th>
                     <th >Service</th>
@@ -22,7 +35,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of service.list">
+                  <tr *ngFor="let data of (service.list|pipefilter:matricule)">
                     <ng-container >
                         <td>{{ data.matricule }}</td>
                       <td>{{ data.nom }}</td>
@@ -34,16 +47,31 @@
                       <td>{{ data.datenaissance }}</td>
                       <td>{{ data.soldecourant }}</td>
                       <td>{{ data.service }}</td>
-                      <td><a ><i nz-icon nzType="eye" nzTheme="outline"></i></a></td>
-                      <td><a [routerLink]="['/addmarchand',data.id]"><i nz-icon nzType="edit" nzTheme="outline" (click)="EditMarchand(data)"></i></a></td>
-                      <td><a ><i nz-icon nzType="delete" nzTheme="outline"></i></a></td>
+                      <td>
+                    <a (click)="showModal(data)" ><i nz-icon nzType="eye" nzTheme="outline"></i></a>
+                        <nz-modal [(nzVisible)]="isVisible" nzTitle="Marchand" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk(selectedRow.nom,selectedRow.id)">
+                          <ng-container *nzModalContent >
+                            <p>{{selectedRow.matricule}}</p>
+                            <p>{{ selectedRow.nom }}</p>
+                            <p>{{ selectedRow.adress }}</p>
+                            <p>{{ selectedRow.cin }}</p>
+                            <p>{{ selectedRow.ntel }}</p>
+                            <p>{{ selectedRow.activiter }}</p>
+                            <p>{{ selectedRow.status }}</p>
+                            <p>{{ selectedRow.service }}</p>
+                          </ng-container>
+                        </nz-modal>
+                       </td>
+                      <td><a [routerLink]="['/addmarchand',data.id]"><i nz-icon nzType="edit" nzTheme="outline"></i></a></td>
+                      <td><a ><i nz-icon nzType="delete" nzTheme="outline" (click)="deleteService(data.id)"></i></a></td>
+                      
                     </ng-container>
                     <ng-template #editTemplate>
                       <td><input type="text" nz-input /></td>
                       <td><input type="text" nz-input  /></td>
                       <td><input type="text" nz-input  /></td>
                       <td><input type="text" nz-input  /></td>
-                      <td><input type="text"  /></td>
+                      <td><input type="text" nz-input/></td>
                       <td><input type="text" nz-input  /></td>
                       <td><input type="text" nz-input  /></td>
                       <td><input type="text" nz-input /></td>

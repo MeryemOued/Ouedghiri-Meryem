@@ -1,5 +1,6 @@
 
-    <div class="flex-container">
+
+  <div class="flex-container">
       <div nz-col class="register" style="
       padding: 20px;">
         <div nz-row>
@@ -8,40 +9,40 @@
             max-height: 100%;" />
           </div>
           <div nz-col  nzFlex="auto" style="padding-left: 30px;">
-            <form autocomplete="off" nz-form #form="ngForm" (ngSubmit)="onSubmit(form.value)">
+            <form autocomplete="off" nz-form #form="ngForm" (ngSubmit)="onSubmit(Form.value)" [formGroup]="Form">
                    
               <!-- Matricule -->
               <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="nom">Matricule</nz-form-label>
+                <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="matricule">Matricule</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Nom Obligatoir!">
-                  <input nz-input id="matricule" name="matricule" [(ngModel)]="service.FormData.matricule" />
+                  <input nz-input id="matricule" name="matricule" formControlName="matricule"  />
                 </nz-form-control>
               </nz-form-item>
               <!-- Nom Complet -->
               <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="nom">Nom</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Nom Obligatoir!">
-                  <input nz-input id="nom" name="nom" [(ngModel)]="service.FormData.nom" />
+                  <input nz-input id="nom" name="nom" formControlName="nom" />
                 </nz-form-control>
               </nz-form-item>
               <!-- Adress -->
               <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="adress">Adress</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Adress Obligatoir!">
-                  <input nz-input id="adress" name="adress" [(ngModel)]="service.FormData.adress">
+                  <input nz-input id="adress" name="adress" formControlName="adress">
                 </nz-form-control>
               </nz-form-item>
               <!-- CIN -->
               <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="cin">CIN</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="CIN Obligatoir!">
-                  <input nz-input id="cin"  name="cin" [(ngModel)]="service.FormData.cin"/>
+                  <input nz-input id="cin"  name="cin"formControlName="cin"/>
                 </nz-form-control>
               </nz-form-item>
               <!-- TEL -->
               <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber" >Phone Number</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="validateForm.controls['phoneNumber']"
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="Form.controls['phoneNumber']"
                   nzErrorTip="Please input your phone number!">
                   <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate" >
                     <ng-template #addOnBeforeTemplate>
@@ -49,7 +50,7 @@
                         <nz-option nzLabel="+212" nzValue="+212"></nz-option>
                       </nz-select>
                     </ng-template>
-                    <input  id="ntel"  name="ntel" [(ngModel)]="service.FormData.ntel"/>
+                    <input  id="ntel"  name="ntel" formControlName="ntel"/>
                   </nz-input-group>
                 </nz-form-control>
               </nz-form-item>
@@ -58,7 +59,7 @@
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="datenaissance">Date de Naissance</nz-form-label>
 
                 <nz-form-control [nzSm]="14" [nzXs]="24">
-                  <nz-date-picker id="datenaissance" name="datenaissance" [(ngModel)]="service.FormData.datenaissance"></nz-date-picker>
+                  <nz-date-picker id="datenaissance" name="datenaissance" formControlName="datenaissance"></nz-date-picker>
                   <br />
                 </nz-form-control>
               </nz-form-item>
@@ -67,7 +68,7 @@
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="nbre">Nombre d'enfants</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24">
                   <label label="Nombre d'enfant">
-                    <nz-input-number  placeholder="Nombre d'enfants"  id="nombreenfants"  name="nombreenfants" [(ngModel)]="service.FormData.nombreenfants"></nz-input-number>
+                    <nz-input-number  placeholder="Nombre d'enfants"  id="nombreenfants"  name="nombreenfants" formControlName="nombreenfants"></nz-input-number>
                   </label>
                 </nz-form-control>
               </nz-form-item>
@@ -75,7 +76,7 @@
               <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="activiter">Activiter</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Activirer Obligatoir!">
-                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selectionnez une Avtiviter" id="activiter"  name="activiter" [(ngModel)]="service.FormData.activiter" >
+                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selectionnez une Avtiviter" id="activiter"  name="activiter" formControlName="activiter" >
                     <nz-option nzLabel="Activiter1" nzValue="Activiter1"></nz-option>
                     <nz-option nzLabel="Activiter2" nzValue="Activiter1"></nz-option>
                     <nz-option nzLabel="Activiter3" nzValue="Activiter1"></nz-option>
@@ -87,11 +88,11 @@
               <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="12" nzFor="status" >Status</nz-form-label>
                 <nz-form-control text-align-center [nzSm]="7" [nzXs]="12" nzErrorTip="Status Obligatoir!">
-                  <nz-switch id="status"  name="activiter" [(ngModel)]="service.FormData.status" ></nz-switch>
+                  <nz-switch id="status"  name="activiter" formControlName="status" ></nz-switch>
                 </nz-form-control>
                 <nz-form-label [nzSm]="6" [nzXs]="12" nzFor="status" >Service</nz-form-label>
                 <nz-form-control [nzSm]="7" [nzXs]="12" nzErrorTip="Service Obligatoir!">
-                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selectionnez une Avtiviter"id="service"  name="service" [(ngModel)]="service.FormData.service" >
+                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selectionnez une Avtiviter"id="service"  name="service"  formControlName="service" >
                     <nz-option nzLabel="Activiter1" nzValue="1"></nz-option>
                     <nz-option nzLabel="Activiter2" nzValue="2"></nz-option>
                     <nz-option nzLabel="Activiter3" nzValue="3"></nz-option>
@@ -103,7 +104,7 @@
               <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="nom">Sold e courant</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Sold Obligatoir!">
-                  <input nz-input id="soldcourant" id="soldecourant"  name="soldecourant" [(ngModel)]="service.FormData.soldecourant" />
+                  <input nz-input id="soldcourant" id="soldecourant"  name="soldecourant" formControlName="soldecourant" />
                 </nz-form-control>
               </nz-form-item>
 
@@ -115,14 +116,22 @@
                 </nz-form-control>
               </nz-form-item>
             
-            
-<!-- BUTTON update -->
+ <!-- nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+(nzChange)="handleChange($event)" -->           
+<!-- BUTTON Upload -->
+<nz-upload
+nzType="drag"
+[nzMultiple]="true"
 
-<!-- <nz-form-item nz-row class="register-area">
-  <nz-form-control [nzSpan]="14" [nzOffset]="6">
-    <button nz-button nzType="primary"(click)="UpdateRow(form.value)">Modifier</button>
-  </nz-form-control>
-</nz-form-item> -->
+>
+<p class="ant-upload-drag-icon">
+  <i nz-icon nzType="inbox"></i>
+</p>
+<p class="ant-upload-text">Click or drag file to this area to upload</p>
+<p class="ant-upload-hint">
+  Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files
+</p>
+</nz-upload>
 </form>
 
           </div>

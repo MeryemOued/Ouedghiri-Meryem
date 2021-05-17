@@ -12,4 +12,5 @@ export class Marchand {
     datenaissance?: Date=new Date();
     soldecourant?: number=0;
     service?: string="";
+    // pj?: string="";
 }
