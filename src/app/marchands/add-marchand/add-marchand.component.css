@@ -1,4 +1,4 @@
-[nz-form] {
+/* [nz-form] {
     max-width: 600px;
   }
 
@@ -89,4 +89,7 @@
 nz-sider{
   background: #000000;
 
-} */
+} */ 
+.ant-upload.ant-upload-drag{
+  height: 32% !important;
+}

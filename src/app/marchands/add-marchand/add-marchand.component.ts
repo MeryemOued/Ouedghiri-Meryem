@@ -143,6 +143,7 @@ console.log(value.id)
         this.Form = this.fb.group({
           id : this.dataform.id,
           ntel: this.dataform.ntel,
+          phoneNumberPrefix: ['+212'],
           nom: this.dataform.nom,
           matricule: this.dataform.matricule,
           adress: this.dataform.adress,
@@ -153,6 +154,7 @@ console.log(value.id)
           service: this.dataform.service,
           datenaissance: this.dataform.datenaissance,
           status: this.dataform.status,
+
         });
       });
       console.log('update');
@@ -161,7 +163,7 @@ console.log(value.id)
     }
 
     this.Form = this.fb.group({
-      // phoneNumberPrefix: ['+212'],
+      phoneNumberPrefix: ['+212'],
       id: [0],
       ntel: [null, [Validators.required]],
       nom: [null, [Validators.required]],
