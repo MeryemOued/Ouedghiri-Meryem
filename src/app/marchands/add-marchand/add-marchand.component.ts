@@ -1,5 +1,5 @@
 import { formatCurrency } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -17,6 +17,7 @@ import { MarchandService } from 'src/app/shared/marchand.service';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 import { ToastrService } from 'ngx-toastr';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { HttpEventType } from '@angular/common/http';
 // import { marchandsdata } from "src/app/files/marchandsdata.data";
 
 @Component({
@@ -33,6 +34,12 @@ export class AddMarchandComponent implements OnInit {
   marchand: Marchand;
   Form!: FormGroup;
   marchands: any;
+  public progress: number;
+  public message: string;
+  public response: {dbPath: ''};
+
+  public photos: string[] = [];
+  @Output() public onUploadFinished = new EventEmitter();
   constructor(
     public fb: FormBuilder,
     public _i18n: NzI18nService,
@@ -40,8 +47,11 @@ export class AddMarchandComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private notification: NzNotificationService
+    
 
   ) {}
+
+
 // NOTIFICATION
 createNotification(type: string,titl:string): void {
   this.notification.create(
@@ -83,9 +93,10 @@ if(this.route.snapshot.paramMap.get('id')){
 }
 else{
   if(this.Form.valid){
-  
-      console.log('ADD NOW')
+    // this.Form.controls["imgPath"].setValue(this.response.dbPath);
+  console.log('ADD NOW')
   this.AddMarchand(value);
+  this.showModal();
   this.createNotification('success','Ajouter');
    this.resetForm();
   }
@@ -191,4 +202,23 @@ console.log(value.id)
   //     this.msg.error(`${file.name} file upload failed.`);
   //   }
   // }
+  isVisible = false;
+  isConfirmLoading = false;
+
+
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    this.isConfirmLoading = true;
+    setTimeout(() => {
+      this.isVisible = false;
+      this.isConfirmLoading = false;
+    }, 1000);
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
 }

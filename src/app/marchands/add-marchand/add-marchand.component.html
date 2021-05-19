@@ -1,62 +1,50 @@
 
-<form nz-form [nzLayout]="'vertical'"   autocomplete="off" #form="ngForm" (ngSubmit)="onSubmit(Form.value)" [formGroup]="Form">
-  <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }" [nzJustify]="'center'">  
-      <div nz-col class="gutter-row" nzSpan="6">
-        <!-- BUTTON Upload -->
-        <nz-form-item  nzFlex>
-          <nz-upload 
-nzType="drag"
-[nzMultiple]="true"
+<form nz-form [nzLayout]="'vertical'" autocomplete="off" #form="ngForm" (ngSubmit)="onSubmit(Form.value)" [formGroup]="Form">
+  <div nz-row [nzGutter]="{ xs: 8, sm: 6, md: 24, lg: 32 }" >  
+      <div nz-col class="gutter-row" nzSpan="6" style="margin-top: 100px;">
 
->
-<p class="ant-upload-drag-icon">
-  <i nz-icon nzType="inbox"></i>
-</p>
-<p class="ant-upload-text">Click or drag file to this area to upload</p>
-<p class="ant-upload-hint">
-  Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files
-</p>
-</nz-upload>
-        </nz-form-item>
 
         <img nz-image zFlex="auto" nzSrc="assets/crud.png" alt="" style="  max-width: 100%;
         max-height: 100%;" />
     </div>
-    <div nz-col class="gutter-row" nzSpan="2"></div>
+    <div nz-col class="gutter-row" nzSpan="4">
+      <!-- BUTTON Upload -->
+      <nz-upload
+      nzType="drag"
+      [nzMultiple]="true"
+
+      >
+      <p class="ant-upload-drag-icon">
+        <i nz-icon nzType="inbox"></i>
+      </p>
+      <p class="ant-upload-text">Click or drag file to this area to upload</p>
+      <p class="ant-upload-hint">
+        Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files
+      </p>
+      </nz-upload>
+
+    </div>
 
     <div nz-col class="gutter-row" nzSpan="6">
 <!-- Matricule -->
 <nz-form-item>
-  <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="matricule">Matricule</nz-form-label>
-  <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="Nom Obligatoir!">
+  <nz-form-label   nzFor="matricule">Matricule</nz-form-label>
+  <nz-form-control  nzErrorTip="Nom Obligatoir!">
     <input nz-input id="matricule" name="matricule" formControlName="matricule"  />
   </nz-form-control>
 </nz-form-item>
-<!-- Nom Complet -->
-<nz-form-item>
-  <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="nom">Nom</nz-form-label>
-  <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="Nom Obligatoir!">
-    <input nz-input id="nom" name="nom" formControlName="nom" />
-  </nz-form-control>
-</nz-form-item>
-<!-- Adress -->
-<nz-form-item>
-  <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="adress">Adress</nz-form-label>
-  <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="Adress Obligatoir!">
-    <input nz-input id="adress" name="adress" formControlName="adress">
-  </nz-form-control>
-</nz-form-item>
+
 <!-- CIN -->
 <nz-form-item>
-  <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="cin">CIN</nz-form-label>
-  <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="CIN Obligatoir!">
+  <nz-form-label  nzFor="cin">CIN</nz-form-label>
+  <nz-form-control nzErrorTip="CIN Obligatoir!">
     <input nz-input id="cin"  name="cin"formControlName="cin"/>
   </nz-form-control>
 </nz-form-item>
 <!-- TEL -->
 <nz-form-item>
   <nz-form-label   nzFor="ntel" >Numero de téléphone</nz-form-label>
-  <nz-form-control [nzSm]="16" [nzXs]="24" [nzValidateStatus]="Form.controls['ntel']" nzErrorTip="Please input your phone number!" >
+  <nz-form-control  [nzValidateStatus]="Form.controls['ntel']" nzErrorTip="Please input your phone number!" >
     <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
       <ng-template #addOnBeforeTemplate>
         <nz-select formControlName="ntel" class="phone-select">
@@ -68,68 +56,87 @@ nzType="drag"
   </nz-form-control>
 </nz-form-item>
 
-    <!-- DATE DE NAISSANCE -->
-    <nz-form-item>
-      <nz-form-label  nzFor="datenaissance">Date de Naissance</nz-form-label>
-
-      <nz-form-control [nzSm]="16" [nzXs]="24">
-        <nz-date-picker id="datenaissance" name="datenaissance" formControlName="datenaissance" ></nz-date-picker>
-        <br />
-      </nz-form-control>
-    </nz-form-item>
+       <!-- Activiter -->
+       <nz-form-item>
+        <nz-form-label   nzFor="activiter">Activiter</nz-form-label>
+        <nz-form-control  nzErrorTip="Activirer Obligatoir!">
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selectionnez une Avtiviter" id="activiter"  name="activiter" formControlName="activiter" >
+            <nz-option nzLabel="Activiter1" nzValue="Activiter1"></nz-option>
+            <nz-option nzLabel="Activiter2" nzValue="Activiter1"></nz-option>
+            <nz-option nzLabel="Activiter3" nzValue="Activiter1"></nz-option>
+          </nz-select>
+        </nz-form-control>
+  
+      </nz-form-item>
+            <!-- Service -->
+     <nz-form-item>
+      <nz-form-label  nzFor="status" >Service</nz-form-label>
+    <nz-form-control nzErrorTip="Service Obligatoir!">
+      <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selectionnez une Avtiviter"id="service"  name="service"  formControlName="service" >
+        <nz-option nzLabel="Activiter1" nzValue="1"></nz-option>
+        <nz-option nzLabel="Activiter2" nzValue="2"></nz-option>
+        <nz-option nzLabel="Activiter3" nzValue="3"></nz-option>
+      </nz-select>
+    </nz-form-control>
+   </nz-form-item>
     </div>
     <div nz-col class="gutter-row" nzSpan="6">
-    
+    <!-- Nom Complet -->
+<nz-form-item>
+  <nz-form-label   nzFor="nom">Nom</nz-form-label>
+  <nz-form-control nzErrorTip="Nom Obligatoir!">
+    <input nz-input id="nom" name="nom" formControlName="nom" />
+  </nz-form-control>
+</nz-form-item>
 
+<!-- Adress -->
+<nz-form-item>
+  <nz-form-label  nzFor="adress">Adress</nz-form-label>
+  <nz-form-control  nzErrorTip="Adress Obligatoir!">
+    <input nz-input id="adress" name="adress" formControlName="adress">
+  </nz-form-control>
+</nz-form-item>
+ <!-- DATE DE NAISSANCE -->
+ <nz-form-item>
+  <nz-form-label  nzFor="datenaissance">Date de Naissance</nz-form-label>
+  <!-- [nzSm]="16" [nzXs]="24" -->
+  <nz-form-control >
+    <nz-date-picker id="datenaissance" name="datenaissance" formControlName="datenaissance" ></nz-date-picker>
+    <br />
+  </nz-form-control>
+</nz-form-item>
     <!-- Nombre d'enfant -->
-    <nz-form-item>
+    <nz-form-item >
       <nz-form-label nzFor="nbre">Nombre d'enfants</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-form-control >
         <label label="Nombre d'enfant">
           <nz-input-number  placeholder="Nombre d'enfants"  id="nombreenfants"  name="nombreenfants" formControlName="nombreenfants"></nz-input-number>
         </label>
       </nz-form-control>
     </nz-form-item>
-    <!-- Activiter -->
-    <nz-form-item>
-      <nz-form-label   nzFor="activiter">Activiter</nz-form-label>
-      <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="Activirer Obligatoir!">
-        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selectionnez une Avtiviter" id="activiter"  name="activiter" formControlName="activiter" >
-          <nz-option nzLabel="Activiter1" nzValue="Activiter1"></nz-option>
-          <nz-option nzLabel="Activiter2" nzValue="Activiter1"></nz-option>
-          <nz-option nzLabel="Activiter3" nzValue="Activiter1"></nz-option>
-        </nz-select>
-      </nz-form-control>
 
-    </nz-form-item>
-    <!-- Status -->
-    <nz-form-item>
-      <nz-form-label  nzFor="status" >Status</nz-form-label>
-      <nz-form-control [nzSm]="16" [nzXs]="24" text-align-center [nzSm]="7" [nzXs]="12" nzErrorTip="Status Obligatoir!">
-        <nz-switch id="status"  name="activiter" formControlName="status" ></nz-switch>
-      </nz-form-control>
-     </nz-form-item>
-      <!-- Service -->
-     <nz-form-item  >
-        <nz-form-label  nzFor="status" >Service</nz-form-label>
-      <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="Service Obligatoir!">
-        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selectionnez une Avtiviter"id="service"  name="service"  formControlName="service" >
-          <nz-option nzLabel="Activiter1" nzValue="1"></nz-option>
-          <nz-option nzLabel="Activiter2" nzValue="2"></nz-option>
-          <nz-option nzLabel="Activiter3" nzValue="3"></nz-option>
-        </nz-select>
-      </nz-form-control>
-     </nz-form-item>
+
      
    
 
     <!-- Sold -->
     <nz-form-item>
       <nz-form-label   nzFor="nom">Sold e courant</nz-form-label>
-      <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="Sold Obligatoir!">
+      <nz-form-control  nzErrorTip="Sold Obligatoir!">
         <input nz-input id="soldcourant" id="soldecourant"  name="soldecourant" formControlName="soldecourant" />
       </nz-form-control>
     </nz-form-item>
+    
+    <!-- Status -->
+    <div style="margin: 20px;">
+    <nz-form-item  >
+      <nz-form-label  nzFor="status" >Status</nz-form-label>
+      <nz-form-control  text-align-center [nzSm]="12" [nzXs]="24" nzErrorTip="Status Obligatoir!">
+        <nz-switch id="status"  name="activiter" formControlName="status" ></nz-switch>
+      </nz-form-control>
+     </nz-form-item>
+    </div>
+
     </div>
 
     <!-- <div nz-col class="gutter-row" nzSpan="6">
@@ -137,7 +144,9 @@ nzType="drag"
     </div> -->
 
 
+
   </div>
+  
     <!-- BUTTON ADD -->
     <div nz-row nzJustify="center">
       <div nz-col nzSpan="6">
@@ -147,5 +156,26 @@ nzType="drag"
           </nz-form-control>
         </nz-form-item>  </div>
       </div>
+      
 </form>
 
+
+
+<nz-modal
+[(nzVisible)]="isVisible"
+[nzFooter]="modalFooter">
+
+<nz-result
+nzStatus="success"
+nzTitle="Le Marchand est Ajoutez"
+nzSubTitle="Le Marchand est bien Ajouter vous pouvez Consuler La List Des Marchand ou Continuez L'ajout des Marchands"
+>
+
+</nz-result>
+
+<ng-template #modalFooter>
+
+  <button nz-button (click)="handleOk()"  nzType="primary">Ajouter</button>
+  <button nz-button routerLink ='/listmarchand'>List Des Marchands</button>
+</ng-template>
+</nz-modal>

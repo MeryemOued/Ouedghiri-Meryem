@@ -6,19 +6,21 @@ import { Marchand } from './shared/marchand.model';
 })
 export class PipefilterPipe implements PipeTransform {
 
-  transform(Marchands :Marchand[],searchValue:any ,type:string): any {
+  transform(Marchands :Marchand[],searchValue:any): Marchand[] {
      if(!Marchands || !searchValue)
      {
        console.log(searchValue)
 
       return Marchands;
     }
-    if(type =="nom")
-    return Marchands.filter(marchand=>marchand.nom?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()))
-    if(type =="matricule")
-    return Marchands.filter(marchand=>marchand.matricule?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()))
-    if(type =="service")
-    return Marchands.filter(marchand=>marchand.service?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()))
+    return Marchands.filter(marchand=>
+      marchand.nom.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()) ||
+      marchand.matricule?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())||
+      marchand.cin?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())||
+      marchand.service?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())||
+      marchand.activiter?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
+    );
+    
    }
 
 }

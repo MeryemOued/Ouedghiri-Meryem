@@ -5,20 +5,22 @@ import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { ToastrService } from 'ngx-toastr';
 import { Marchand } from 'src/app/shared/marchand.model';
 import { MarchandService } from 'src/app/shared/marchand.service';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
-interface ItemData {
-  id: string;
-  matricul: string;
-  nom: string;
-  adress: string;
-  cin: string;
-  ntel?: string;
-  activiter: string;
-  status: string;
-  datenaissance: Date;
-  soldecourant: number;
-  service: string;
-}
+
+// interface ItemData {
+//   id: string;
+//   matricul: string;
+//   nom: string;
+//   adress: string;
+//   cin: string;
+//   ntel?: string;
+//   activiter: string;
+//   status: string;
+//   datenaissance: Date;
+//   soldecourant: number;
+//   service: string;
+// }
 
 @Component({
   selector: 'app-list-marchand',
@@ -30,8 +32,8 @@ export class ListMarchandComponent implements OnInit {
     { text: 'Active', value: 'true' },
     { text: 'Pas Encore', value: 'false' }
   ];
-  editCache: { [key: string]: { edit: boolean; data: ItemData } } = {};
-  listOfData: ItemData[] = [];
+  // editCache: { [key: string]: { edit: boolean; data: service.list } } = {};
+  // listOfData: ItemData[] = [];
   matricule: string;
   marchands: any = [];
   nom : any;
@@ -86,6 +88,18 @@ export class ListMarchandComponent implements OnInit {
 //  })
 
 //  }
+visible = false;
+
+open(row :any): void {
+  this.visible = true;
+  this.selectedRow=row;
+  console.log(row)
+  console.log(row.id)
+}
+
+close(): void {
+  this.visible = false;
+}
 showModal(row:any): void {
   this.selectedRow=row;
   console.log(row)
@@ -95,7 +109,7 @@ showModal(row:any): void {
 
 handleOk(row:any,id:any): void {
   console.log(id)
-  this.service.downloadfile(row,id);
+  // this.service.downloadfile(row,id);
   console.log('Button ok clicked!');
   // this.isVisible = false;
 
