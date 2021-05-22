@@ -9,12 +9,18 @@ import { jsDocComment } from '@angular/compiler';
   providedIn: 'root',
 })
 export class MarchandService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {}  
+
   // marchand : Marchand;
-  readonly baseURL = 'http://localhost:25835/api/Marchands';
+  readonly baseURL = 'https://localhost:44341/api/Marchand';
   FormData: Marchand = new Marchand();
   list: Marchand[];
  ma:any;
+ public upload(formData: FormData) {
+  return this.httpClient.post(`http://localhost:44341/api/Upload`, formData, {
+    reportProgress: true,
+    observe: 'events',
+  });}
   refreshTable() {
     this.httpClient
       .get(this.baseURL)
@@ -57,4 +63,18 @@ console.log(JSON.stringify(pdf))
     }
     )
   }
+  
+
+  public download(fileUrl: string) {
+    return this.httpClient.get(`${this.baseURL}/download?fileUrl=${fileUrl}`, {
+      reportProgress: true,
+      observe: 'events',
+      responseType: 'blob',
+    });
+  }
+
+  public getPhotos() {
+    return this.httpClient.get(`http://localhost:25835/api/Upload/getPhotos`);
+  }
 }
+

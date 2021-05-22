@@ -1,18 +1,19 @@
 
 export class Marchand {
-    id?:number;
+    idMerchant?:number;
     matricule?: string;
-    nom: string;
-    adress?: string="";
+    Firstname: string;
+    Lastname: string;
+    address?: string="";
     cin?: string ="";
-    ntel?: string;
-    nombreenfants?: number =0;
-    activiter?: string ="";
-    status?: boolean =false;
-    datenaissance?: Date=new Date();
-    soldecourant?: number=0;
-    service?: string="";
-    imgPath: string
+    phoneNumber?: string="";
+    ChildrenNumber?: number =0;
+    // activiter?: string ="";
+    Statue?: boolean =false;
+    DateBirth?: Date=new Date();
+    monthly?: number=0;
+    // service?: string="";
+    Attachment?: string
 
     // pj?: string="";
 }

@@ -1,5 +1,11 @@
 import { formatCurrency } from '@angular/common';
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -36,9 +42,9 @@ export class AddMarchandComponent implements OnInit {
   marchands: any;
   public progress: number;
   public message: string;
-  public response: {dbPath: ''};
 
   public photos: string[] = [];
+
   @Output() public onUploadFinished = new EventEmitter();
   constructor(
     public fb: FormBuilder,
@@ -46,21 +52,39 @@ export class AddMarchandComponent implements OnInit {
     public service: MarchandService,
     private route: ActivatedRoute,
     private router: Router,
-    private notification: NzNotificationService
-    
-
+    private notification: NzNotificationService,
+    private fileService: MarchandService
   ) {}
+  public uploadFile = (files: any) => {
+    if (files.length === 0) {
+      return;
+    }
 
+    let fileToUpload = <File>files[0];
+    const formData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
 
-// NOTIFICATION
-createNotification(type: string,titl:string): void {
-  this.notification.create(
-    type,
-   titl+"",
-    'This is the content of the notification. This is the content of the notification. This is the content of the notification.'
-  );
-}
-// GET DATA
+    this.fileService.upload(formData).subscribe((event: any) => {
+      if (event.type === HttpEventType.UploadProgress)
+        this.progress = Math.round((100 * event.loaded) / event.total);
+      else if (event.type === HttpEventType.Response) {
+        this.message = 'Upload success.';
+        this.onUploadFinished.emit(event.body);
+      }
+    });
+    this.Form.controls['imgPath'].setValue(fileToUpload.name);
+    console.log(this.Form.controls['imgPath']);
+    console.log(fileToUpload);
+  };
+  // NOTIFICATION
+  createNotification(type: string, titl: string): void {
+    this.notification.create(
+      type,
+      titl + '',
+      'This is the content of the notification. This is the content of the notification. This is the content of the notification.'
+    );
+  }
+  // GET DATA
   getData() {
     this.service.getService().subscribe(
       (data) => {
@@ -72,69 +96,43 @@ createNotification(type: string,titl:string): void {
     );
   }
 
-onSubmit(value: any) {
-let req :any;
-  for (const i in this.Form.controls) {
-    this.Form.controls[i].markAsDirty();
-    this.Form.controls[i].updateValueAndValidity();
+  onSubmit() {
+    let req: any;
+    for (const i in this.Form.controls) {
+      this.Form.controls[i].markAsDirty();
+      this.Form.controls[i].updateValueAndValidity();
+    }
+
+    if (this.route.snapshot.paramMap.get('idMerchant')) {
+      if (this.Form.valid) {
+        console.log('UPDATE NOW');
+        const id = this.route.snapshot.paramMap.get('idMerchant');
+        this.Form.controls['id'].setValue(id);
+        this.UpdateRow();
+        this.createNotification('info', 'Modifier');
+        this.router.navigate(['/listmarchand']);
+      }
+    } else {
+      if (this.Form.valid) {
+        // this.Form.controls["imgPath"].setValue(this.response.dbPath);
+        console.log('ADD NOW');
+console.log(this.fileService.getPhotos())
+        this.AddMarchand();
+        this.showModal();
+        this.createNotification('success', 'Ajouter');
+        this.resetForm();
+      } else {
+        this.createNotification('error', 'Erreur');
+      }
+    }
   }
 
-if(this.route.snapshot.paramMap.get('id')){
-  if(this.Form.valid){
-      console.log('UPDATE NOW')
-  const id = this.route.snapshot.paramMap.get('id');
-  value.id = id;
-  this.UpdateRow(value)
-  this.createNotification('info','Modifier');
-  this.router.navigate(['/listmarchand'])
-  }
+  // ADD-MARCHAND
 
-
-}
-else{
-  if(this.Form.valid){
-    // this.Form.controls["imgPath"].setValue(this.response.dbPath);
-  console.log('ADD NOW')
-  this.AddMarchand(value);
-  this.showModal();
-  this.createNotification('success','Ajouter');
-   this.resetForm();
-  }
-  else{
-    this.createNotification('error','Erreur');
-  }
-
-
-
-}
-
-  }
-
-// ADD-MARCHAND
-
-AddMarchand(value:any){
-
-   this.service.createService(value).subscribe(
-        (res) => {
-          // this.resetForm(form);
-          this.service.refreshTable();
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-}
-  getDataById(id: any) {
-    this.service.getIdService(id).subscribe((res) => {
-      this.dataform = res;
-    });
-    return this.dataform;
-  }
-  UpdateRow(value:any) {
-    this.service.putService(value).subscribe(
+  AddMarchand() {
+    this.service.createService(this.Form.value).subscribe(
       (res) => {
-        
-console.log(value.id)
+        // this.resetForm(form);
         this.service.refreshTable();
       },
       (err) => {
@@ -142,30 +140,48 @@ console.log(value.id)
       }
     );
   }
-   resetForm() {
- this.Form.reset();
+  getDataById(id: any) {
+    this.service.getIdService(id).subscribe((res) => {
+      this.dataform = res;
+    });
+    return this.dataform;
+  }
+  UpdateRow() {
+    const value = this.Form.value;
+    this.service.putService(value).subscribe(
+      (res) => {
+        console.log(value.id);
+        this.service.refreshTable();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+  resetForm() {
+    this.Form.reset();
   }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('idMerchant');
     if (id != null) {
       this.service.getIdService(id).subscribe((res) => {
         this.dataform = res;
         this.Form = this.fb.group({
-          id : this.dataform.id,
-          ntel: this.dataform.ntel,
+          idMerchant: this.dataform.idMerchant,
+          phoneNumber: this.dataform.phoneNumber,
           phoneNumberPrefix: ['+212'],
-          nom: this.dataform.nom,
-          matricule: this.dataform.matricule,
-          adress: this.dataform.adress,
-          cin: this.dataform.cin,
-          nombreenfants: this.dataform.nombreenfants,
-          activiter: this.dataform.activiter,
-          soldecourant: this.dataform.soldecourant,
-          service: this.dataform.service,
-          datenaissance: this.dataform.datenaissance,
-          status: this.dataform.status,
-
+          Firstname: this.dataform.Firstname,
+          Lastname: this.dataform.Lastname,
+          Matricule: this.dataform.Matricule,
+          Address: this.dataform.Address,
+          Cin: this.dataform.Cin,
+          ChildrenNumber: this.dataform.ChildrenNumber,
+          // activiter: this.dataform.activiter,
+          Monthly: this.dataform.Monthly,
+          // service: this.dataform.service,
+          DateBirth: this.dataform.DateBirth,
+          Statue: this.dataform.Statue,
         });
       });
       console.log('update');
@@ -175,36 +191,37 @@ console.log(value.id)
 
     this.Form = this.fb.group({
       phoneNumberPrefix: ['+212'],
-      id: [0],
-      ntel: [null, [Validators.required]],
-      nom: [null, [Validators.required]],
-      matricule: [null, [Validators.required]],
-      adress: [null, [Validators.required]],
-      cin: [null, [Validators.required]],
-      nombreenfants: [0, [Validators.required]],
-      activiter: [null, [Validators.required]],
-      soldecourant: [0, [Validators.required]],
-      service: [null, [Validators.required]],
-      datenaissance: [null],
-      status: [false],
+      idMerchant: [0],
+      phoneNumber: [null, [Validators.required]],
+      Lastname: [null, [Validators.required]],
+      Firstname: [null, [Validators.required]],
+      Matricule: [null, [Validators.required]],
+      Address: [null, [Validators.required]],
+      Cin: [null, [Validators.required]],
+      ChildrenNumber: [0, [Validators.required]],
+      // activiter: [null, [Validators.required]],
+      Monthly: [0, [Validators.required]],
+      // service: [null, [Validators.required]],
+      DateBirth: [null],
+      Statue: [false],
+      // imgPath: '',
     });
   }
   // UPLOAD
   // handleChange({ file, fileList }: NzUploadChangeParam): void {
-  //   const status = file.status;
-    
-  //   if (status !== 'uploading') {
+  //   const Statue= file.status;
+
+  //   if (Statue!== 'uploading') {
   //     console.log(file, fileList);
   //   }
-  //   if (status === 'done') {
+  //   if (Statue=== 'done') {
   //     this.msg.success(`${file.name} file uploaded successfully.`);
-  //   } else if (status === 'error') {
+  //   } else if (Statue=== 'error') {
   //     this.msg.error(`${file.name} file upload failed.`);
   //   }
   // }
   isVisible = false;
   isConfirmLoading = false;
-
 
   showModal(): void {
     this.isVisible = true;

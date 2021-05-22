@@ -14,11 +14,12 @@ export class PipefilterPipe implements PipeTransform {
       return Marchands;
     }
     return Marchands.filter(marchand=>
-      marchand.nom.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()) ||
+      marchand.Firstname.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()) ||
+      marchand.Lastname.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()) ||
       marchand.matricule?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())||
-      marchand.cin?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())||
-      marchand.service?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())||
-      marchand.activiter?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
+      marchand.cin?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
+      // marchand.service?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())||
+      // marchand.activiter?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
     );
     
    }

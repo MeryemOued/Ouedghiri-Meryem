@@ -1,102 +1,122 @@
-
-
-
-
-    <div nz-row>
-    <div nz-col nzSpan="8"></div>
-    <div nz-col nzSpan="8">    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-      <input type="text" nz-input placeholder="input search text" [(ngModel)]="nom" />
+<div nz-row>
+  <div nz-col nzSpan="8"></div>
+  <div nz-col nzSpan="8">
+    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+      <input type="text" nz-input placeholder="input search text"  />
     </nz-input-group>
     <ng-template #suffixIconButton>
       <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
-    </ng-template></div>
-    <div nz-col nzSpan="8"></div>
+    </ng-template>
   </div>
-<div nz-row >
-  <button nz-button nzType="primary" routerLink ='/addmarchand'><i nz-icon nzType="plus" nzTheme="outline"></i>Ajouter Marchand</button>
+  <div nz-col nzSpan="8"></div>
+</div>
+<div nz-row>
+  <button nz-button nzType="primary" routerLink='/addmarchand'><i nz-icon nzType="plus" nzTheme="outline"></i>Ajouter
+    Marchand</button>
 
 </div>
 
-        <div class="inner-content">
-          <nz-table #fixedTable [nzData]="service.list" [nzScroll]="{ x: '1150px', y: '440px' }" >
-            <thead>
-              <tr>
-                <th nzWidth ="180px">Details</th>
-                <th >Matricule</th>
-                <th >CIN</th>
-                <th >N° Telephone</th>
-                <th>Activiter</th>
-                <th >Status</th>
-                <th >Solde</th>
-                <th >Service</th>
-                <th nzWidth ="80px" >Action</th>
-          
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let data of (service.list|pipefilter:nom)">
-              
-                <td nzLeft> <a (click)="open(data)"> <nz-avatar nzIcon="user"></nz-avatar> {{ data?.nom }}
-                </a>
-                  <nz-drawer [nzVisible]="visible" [nzWidth]="640" [nzClosable]="false" (nzOnClose)="close()">
-                    <ng-container *nzDrawerContent *ngIf="selectedRow">
-                      <p class="title" style=" margin-bottom: 24px;">Detail Marchand</p>
-                      <nz-descriptions [nzColumn]="2" nzTitle="Personal">
-                        <nz-descriptions-item nzTitle="Nom Complet" [nzSpan]="1">            <p>{{selectedRow.nom}}</p></nz-descriptions-item>
-                        <nz-descriptions-item nzTitle="compte Marchand" [nzSpan]="1">----</nz-descriptions-item>
-                        <nz-descriptions-item nzTitle="Adress" [nzSpan]="1">     <p>{{ selectedRow.adress }}</p></nz-descriptions-item>
-                        <nz-descriptions-item nzTitle="Country" [nzSpan]="1">Maroc</nz-descriptions-item>
-                        <nz-descriptions-item nzTitle="Date De Naissance" [nzSpan]="1">     <p>{{ selectedRow.datenaissance }}</p></nz-descriptions-item>
-                     
-                        <nz-descriptions-item nzTitle="commentaire" [nzSpan]="2">-------.</nz-descriptions-item>
-                      </nz-descriptions>
-                      <nz-divider></nz-divider>
-                      <nz-descriptions [nzColumn]="2" nzTitle="PCP">
-                        <nz-descriptions-item nzTitle="Matricule" [nzSpan]="1">          <p>{{selectedRow.matricule}}</p></nz-descriptions-item>
-                        <nz-descriptions-item nzTitle="Platforme" [nzSpan]="1">          <p>{{selectedRow.service}}</p></nz-descriptions-item>
-                        <nz-descriptions-item nzTitle="Activiter" [nzSpan]="1">          <p>{{selectedRow.activiter}}</p></nz-descriptions-item>
-                        <nz-descriptions-item nzTitle="Statue" [nzSpan]="1">          <p>{{selectedRow.status}}</p></nz-descriptions-item>
-                        <nz-descriptions-item nzTitle="Solde" [nzSpan]="2">
-                          <p>{{selectedRow.soldecourant}}</p>
-                        </nz-descriptions-item>
-                      </nz-descriptions>
-                      <nz-divider></nz-divider>
-                      <nz-descriptions [nzColumn]="2" nzTitle="Contacts">
-                        <nz-descriptions-item nzTitle="Email" [nzSpan]="1">----@gmail.com</nz-descriptions-item>
-                        <nz-descriptions-item nzTitle="Numero de Telephone" [nzSpan]="1">          <p>{{selectedRow.ntel}}</p></nz-descriptions-item>
-                     
-                      </nz-descriptions>
-                    </ng-container>
-                  </nz-drawer></td>
-                <td nzLeft>{{ data.matricule }}</td>
-                <!-- <td nzLeft>{{ data?.nom }}</td> -->
-                <td>{{ data.cin }}</td>
-                <td>{{ data.ntel }}</td>
-                <td>{{ data.activiter }}</td>
-                <td>{{ data.status }}</td>
-                <td>{{ data.soldecourant }}</td>
-                <td>{{ data.service }}</td>
-                <td nzRight>
-                <!-- <a (click)="showModal(data)" style="margin-right: 5px" ><i nz-icon nzType="eye" nzTheme="outline"></i></a>
+<div class="inner-content">
+  <nz-table #fixedTable [nzData]="service.list" [nzScroll]="{ x: '1150px', y: '440px' }">
+    <thead>
+      <tr>
+        <th nzWidth="180px">Details</th>
+        <th>Matricule</th>
+        <th>CIN</th>
+        <th>N° Telephone</th>
+        <!-- <th>Activiter</th> -->
+        <th>Status</th>
+        <th>Solde</th>
+        <!-- <th>Service</th> -->
+        <th nzWidth="80px">Action</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of (service.list)">
+
+        <td nzLeft> <a (click)="open(data)">
+            <nz-avatar nzIcon="user"></nz-avatar> {{ data?.Firstname }} 
+          </a>
+          <nz-drawer [nzVisible]="visible" [nzWidth]="640" [nzClosable]="false" (nzOnClose)="close()">
+            <ng-container *nzDrawerContent>
+              <p class="title" style=" margin-bottom: 24px;">Detail Marchand</p>
+              <nz-descriptions [nzColumn]="2" nzTitle="Personal">
+                <nz-descriptions-item nzTitle="Prenom" [nzSpan]="1">
+                  <p>{{selectedRow?.Firstname}}</p>
+                </nz-descriptions-item>
+                                <!-- <nz-descriptions-item nzTitle="Nom" [nzSpan]="1">
+                  <p>{{selectedRow?.Lastname}}</p>
+                </nz-descriptions-item> -->
+                <nz-descriptions-item nzTitle="compte Marchand" [nzSpan]="1">----</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="Address" [nzSpan]="1">
+                  <p>{{ selectedRow?.Address }}</p>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="Country" [nzSpan]="1">Maroc</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="Date De Naissance" [nzSpan]="1">
+                  <p>{{ selectedRow?.DateBirth }}</p>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="commentaire" [nzSpan]="2">-------.</nz-descriptions-item>
+              </nz-descriptions>
+              <nz-divider></nz-divider>
+              <nz-descriptions [nzColumn]="2" nzTitle="PCP">
+                <nz-descriptions-item nzTitle="Matricule" [nzSpan]="1">
+                  <p>{{selectedRow?.Matricule}}</p>
+                </nz-descriptions-item>
+                <!-- <nz-descriptions-item nzTitle="Platforme" [nzSpan]="1">
+                  <p>{{selectedRow?.service}}</p>
+                </nz-descriptions-item> -->
+                <!-- <nz-descriptions-item nzTitle="Activiter" [nzSpan]="1">
+                  <p>{{selectedRow?.activiter}}</p>
+                </nz-descriptions-item> -->
+                <nz-descriptions-item nzTitle="Statue" [nzSpan]="1">
+                  <p>{{selectedRow?.Statue}}</p>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="Solde" [nzSpan]="2">
+                  <p>{{selectedRow?.Monthly}}</p>
+                </nz-descriptions-item>
+              </nz-descriptions>
+              <nz-divider></nz-divider>
+              <nz-descriptions [nzColumn]="2" nzTitle="Contacts">
+                <nz-descriptions-item nzTitle="Email" [nzSpan]="1">----@gmail.com</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="Numero de Telephone" [nzSpan]="1">
+                  <p>{{selectedRow?.phoneNumber}}</p>
+                </nz-descriptions-item>
+
+              </nz-descriptions>
+            </ng-container>
+          </nz-drawer>
+        </td>
+        <td nzLeft>{{data.matricule}}</td>
+        <!-- <td nzLeft>{{ data?.nom }}</td> -->
+        <td>{{ data.cin}}</td>
+        <td>{{ data.phoneNumber }}</td>
+        <!-- <td>{{ data.activiter }}</td> -->
+        <td>{{ data.Statue}}</td>
+        <td>{{ data.monthly }}</td>
+        <!-- <td>{{ data.service }}</td> -->
+        <td nzRight>
+          <!-- <a (click)="showModal(data)" style="margin-right: 5px" ><i nz-icon nzType="eye" nzTheme="outline"></i></a>
                   <nz-modal [(nzVisible)]="isVisible" nzTitle="Marchand" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk(selectedRow?.nom,selectedRow.id)">
                     <ng-container *nzModalContent >
                       <p>{{selectedRow.matricule}}</p>
                       <p>{{ selectedRow?.nom }}</p>
-                      <p>{{ selectedRow.adress }}</p>
-                      <p>{{ selectedRow.cin }}</p>
-                      <p>{{ selectedRow.ntel }}</p>
+                      <p>{{ selectedRow.Address }}</p>
+                      <p>{{ selectedRow.Cin}}</p>
+                      <p>{{ selectedRow.phoneNumber }}</p>
                       <p>{{ selectedRow.activiter }}</p>
-                      <p>{{ selectedRow.status }}</p>
+                      <p>{{ selectedRow.Statue}}</p>
                       <p>{{ selectedRow.service }}</p>
                     </ng-container>
                   </nz-modal>
                  -->
 
-                <a [routerLink]="['/addmarchand',data.id]"  style="margin-right: 5px"><i nz-icon nzType="edit" nzTheme="outline"></i></a>
-               <a  style="margin-right: 5px"><i nz-icon nzType="delete" nzTheme="outline" (click)="deleteService(data.id)"></i></a></td>
-                
-              </tr>
-            </tbody>
-          </nz-table>
-        </div>
-  
+          <a [routerLink]="['/addmarchand',data.idMerchant]" style="margin-right: 5px"><i nz-icon nzType="edit"
+              nzTheme="outline"></i></a>
+          <a style="margin-right: 5px"><i nz-icon nzType="delete" nzTheme="outline"
+              (click)="deleteService(data.idMerchant)"></i></a></td>
+
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

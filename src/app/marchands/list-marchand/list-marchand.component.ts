@@ -12,13 +12,13 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 //   id: string;
 //   matricul: string;
 //   nom: string;
-//   adress: string;
+//   Address: string;
 //   cin: string;
-//   ntel?: string;
+//   phoneNumber?: string;
 //   activiter: string;
 //   status: string;
-//   datenaissance: Date;
-//   soldecourant: number;
+//   DateBirth: Date;
+//   Monthly: number;
 //   service: string;
 // }
 
