@@ -1,0 +1,27 @@
+<p>receptions works!</p>
+<!-- <input nz-input id="Matricule" name="Matricule" formControlName="matricule" /> -->
+
+<nz-table #fixedTable   [nzScroll]="{ x: '1150px', y: '240px' }">
+    <thead>
+      <tr>
+        <th nzLeft>Marchand</th>
+        <th nzLeft>Token</th>
+        <th>Date</th>
+        <th>Montant</th>
+        <th>status</th>
+        <th nzRight>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let data of service.list;let i=index"  >
+        <td nzLeft>{{ data?.firstname }}</td>
+        <td nzLeft>{{ data.matricule }}</td>
+        <td>{{ listOfData[i].name }}</td>
+        <td>{{ listOfData[i].age }}</td>
+        <!-- <td>{{data.statue }}</td> -->
+        <td nzRight>
+          <a>action</a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>

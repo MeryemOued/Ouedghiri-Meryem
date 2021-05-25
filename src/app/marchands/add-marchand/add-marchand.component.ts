@@ -72,10 +72,12 @@ export class AddMarchandComponent implements OnInit {
         this.onUploadFinished.emit(event.body);
       }
     });
-    this.Form.controls['imgPath'].setValue(fileToUpload.name);
+    // this.Form.controls['imgPath'].setValue(fileToUpload.name);
     console.log(this.Form.controls['imgPath']);
     console.log(fileToUpload);
   };
+
+  
   // NOTIFICATION
   createNotification(type: string, titl: string): void {
     this.notification.create(
@@ -104,10 +106,13 @@ export class AddMarchandComponent implements OnInit {
     }
 
     if (this.route.snapshot.paramMap.get('idMerchant')) {
+
+
       if (this.Form.valid) {
-        console.log('UPDATE NOW');
+
         const id = this.route.snapshot.paramMap.get('idMerchant');
-        this.Form.controls['id'].setValue(id);
+     
+        // this.Form.controls['idMerchant'].setValue(id);
         this.UpdateRow();
         this.createNotification('info', 'Modifier');
         this.router.navigate(['/listmarchand']);
@@ -116,7 +121,7 @@ export class AddMarchandComponent implements OnInit {
       if (this.Form.valid) {
         // this.Form.controls["imgPath"].setValue(this.response.dbPath);
         console.log('ADD NOW');
-console.log(this.fileService.getPhotos())
+      console.log(this.fileService.getPhotos())
         this.AddMarchand();
         this.showModal();
         this.createNotification('success', 'Ajouter');
@@ -148,9 +153,10 @@ console.log(this.fileService.getPhotos())
   }
   UpdateRow() {
     const value = this.Form.value;
+    // console.log( "UP" +value)
+    // console.log(this.Form.value)
     this.service.putService(value).subscribe(
       (res) => {
-        console.log(value.id);
         this.service.refreshTable();
       },
       (err) => {
@@ -171,17 +177,17 @@ console.log(this.fileService.getPhotos())
           idMerchant: this.dataform.idMerchant,
           phoneNumber: this.dataform.phoneNumber,
           phoneNumberPrefix: ['+212'],
-          Firstname: this.dataform.Firstname,
-          Lastname: this.dataform.Lastname,
-          Matricule: this.dataform.Matricule,
-          Address: this.dataform.Address,
-          Cin: this.dataform.Cin,
-          ChildrenNumber: this.dataform.ChildrenNumber,
+          firstname: this.dataform.firstname,
+          lastname: this.dataform.lastname,
+          matricule: this.dataform.matricule,
+          address: this.dataform.address,
+          cin: this.dataform.cin,
+          childrenNumber: this.dataform.childrenNumber,
           // activiter: this.dataform.activiter,
-          Monthly: this.dataform.Monthly,
+          monthly: this.dataform.Monthly,
           // service: this.dataform.service,
-          DateBirth: this.dataform.DateBirth,
-          Statue: this.dataform.Statue,
+          dateBirth: this.dataform.dateBirth,
+          statue: this.dataform.statue,
         });
       });
       console.log('update');
@@ -191,19 +197,19 @@ console.log(this.fileService.getPhotos())
 
     this.Form = this.fb.group({
       phoneNumberPrefix: ['+212'],
-      idMerchant: [0],
+      idMerchant: 0,
       phoneNumber: [null, [Validators.required]],
-      Lastname: [null, [Validators.required]],
-      Firstname: [null, [Validators.required]],
-      Matricule: [null, [Validators.required]],
-      Address: [null, [Validators.required]],
-      Cin: [null, [Validators.required]],
-      ChildrenNumber: [0, [Validators.required]],
+      lastname: [null, [Validators.required]],
+      firstname: [null, [Validators.required]],
+      matricule: [null, [Validators.required]],
+      address: [null, [Validators.required]],
+      cin: [null, [Validators.required]],
+      childrenNumber: [0, [Validators.required]],
       // activiter: [null, [Validators.required]],
-      Monthly: [0, [Validators.required]],
+      monthly: [0, [Validators.required]],
       // service: [null, [Validators.required]],
-      DateBirth: [null],
-      Statue: [false],
+      dateBirth: [null],
+      statue: [false],
       // imgPath: '',
     });
   }

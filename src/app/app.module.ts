@@ -26,6 +26,7 @@ import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
 import { MarchandService } from './shared/marchand.service';
 import { PipefilterPipe } from './pipefilter.pipe';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { ReceptionsComponent } from './receptions/receptions.component';
 
 
 registerLocaleData(fr);
@@ -39,6 +40,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     ListMarchandComponent,
     AddMarchandComponent,
     LoginComponent,
+    ReceptionsComponent,
     PipefilterPipe,
     
   ],

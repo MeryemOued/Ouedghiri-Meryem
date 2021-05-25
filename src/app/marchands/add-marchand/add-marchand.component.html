@@ -45,7 +45,7 @@
       <nz-form-item>
         <nz-form-label nzFor="Matricule">Matricule</nz-form-label>
         <nz-form-control nzErrorTip="Nom Obligatoir!">
-          <input nz-input id="Matricule" name="Matricule" formControlName="Matricule" />
+          <input nz-input id="Matricule" name="Matricule" formControlName="matricule" />
         </nz-form-control>
       </nz-form-item>
 
@@ -53,7 +53,7 @@
       <nz-form-item>
         <nz-form-label nzFor="cin">CIN</nz-form-label>
         <nz-form-control nzErrorTip="Cin Obligatoir!">
-          <input nz-input id="Cin" name="Cin" formControlName="Cin" />
+          <input nz-input id="Cin" name="Cin" formControlName="cin" />
         </nz-form-control>
       </nz-form-item>
       <!-- TEL -->
@@ -102,8 +102,8 @@
       <nz-form-item>
         <nz-form-label nzFor="nom">Nom</nz-form-label>
         <nz-form-control nzErrorTip="Nom Obligatoir!">
-          <input nz-input id="Firstname" name="Firstname" formControlName="Firstname" />
-          <input nz-input id="Lastname" name="Lastname" formControlName="Lastname" />
+          <input nz-input id="Firstname" name="=firstname" formControlName="firstname" />
+          <input nz-input id="Lastname" name="lastname" formControlName="lastname" />
         </nz-form-control>
       </nz-form-item>
 
@@ -111,15 +111,15 @@
       <nz-form-item>
         <nz-form-label nzFor="Address">Address</nz-form-label>
         <nz-form-control nzErrorTip="Address Obligatoir!">
-          <input nz-input id="Address" name="Address" formControlName="Address">
+          <input nz-input id="Address" name="Address" formControlName="address">
         </nz-form-control>
       </nz-form-item>
       <!-- DATE DE NAISSANCE -->
       <nz-form-item>
-        <nz-form-label nzFor="DateBirth">Date de Naissance</nz-form-label>
+        <nz-form-label nzFor="dateBirth">Date de Naissance</nz-form-label>
         <!-- [nzSm]="16" [nzXs]="24" -->
         <nz-form-control>
-          <nz-date-picker id="DateBirth" name="DateBirth" formControlName="DateBirth"></nz-date-picker>
+          <nz-date-picker id="dateBirth" name="dateBirth" formControlName="dateBirth"></nz-date-picker>
           <br />
         </nz-form-control>
       </nz-form-item>
@@ -129,7 +129,7 @@
         <nz-form-control>
           <label label="Nombre d'enfant">
             <nz-input-number placeholder="Nombre d'enfants" id="ChildrenNumber" name="ChildrenNumber"
-              formControlName="ChildrenNumber"></nz-input-number>
+              formControlName="childrenNumber"></nz-input-number>
           </label>
         </nz-form-control>
       </nz-form-item>
@@ -140,9 +140,9 @@
 
       <!-- Sold -->
       <nz-form-item>
-        <nz-form-label nzFor="Monthly">Sold e courant</nz-form-label>
+        <nz-form-label nzFor="monthly">Sold e courant</nz-form-label>
         <nz-form-control nzErrorTip="Sold Obligatoir!">
-          <input nz-input id="Monthly" id="Monthly" name="Monthly" formControlName="Monthly" />
+          <input nz-input id="monthly" id="monthly" name="monthly" formControlName="monthly" />
         </nz-form-control>
       </nz-form-item>
 
@@ -151,7 +151,7 @@
         <nz-form-item>
           <nz-form-label nzFor="Statue">Status</nz-form-label>
           <nz-form-control text-align-center [nzSm]="12" [nzXs]="24" nzErrorTip="StatueObligatoir!">
-            <nz-switch id="Statue" name="Statue" formControlName="Statue"></nz-switch>
+            <nz-switch id="Statue" name="statue" formControlName="statue"></nz-switch>
           </nz-form-control>
         </nz-form-item>
       </div>

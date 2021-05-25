@@ -9,33 +9,36 @@ import { jsDocComment } from '@angular/compiler';
   providedIn: 'root',
 })
 export class MarchandService {
-  constructor(private httpClient: HttpClient) {}  
-
+  constructor(private httpClient: HttpClient) {}
   // marchand : Marchand;
   readonly baseURL = 'https://localhost:44341/api/Marchand';
   FormData: Marchand = new Marchand();
   list: Marchand[];
- ma:any;
- public upload(formData: FormData) {
-  return this.httpClient.post(`http://localhost:44341/api/Upload`, formData, {
-    reportProgress: true,
-    observe: 'events',
-  });}
+  ma: any;
   refreshTable() {
     this.httpClient
       .get(this.baseURL)
       .toPromise()
-      .then((res) => (this.list = res as Marchand[]));
+      .then((res) => {this.list = res as unknown as Marchand[]});
+  }
+  public upload(formData: FormData) {
+    return this.httpClient.post(`http://localhost:44341/api/Upload`, formData, {
+      reportProgress: true,
+      observe: 'events', 
+    });
   }
 
-  createService(data:any) {
+
+
+  createService(data: any) {
     return this.httpClient.post(this.baseURL, data);
   }
 
-    putService(data:any) {
-    return this.httpClient.put(
-      `${this.baseURL}`,data
-    );
+  putService(data: any) {
+
+    console.log("PUT")
+    console.log(data)
+    return this.httpClient.put(`${this.baseURL}`, data);
   }
   getService() {
     return this.httpClient.get(this.baseURL);
@@ -46,24 +49,24 @@ export class MarchandService {
   getIdService(id: any) {
     return this.httpClient.get(`${this.baseURL}/${id}`);
   }
-  
-  downloadfile(name:string ,id:any){
-    this.httpClient.get(`${this.baseURL}/${id}`).subscribe(pdf=>{
-      // const blob = new Blob([pdf],{type:'application/pdf'});
-      const doc = new jsPDF();
-      const fileName=name+"pdf";
 
-  
-console.log(JSON.stringify(pdf))
+  downloadfile(name: string, id: any) {
+    this.httpClient.get(`${this.baseURL}/${id}`).subscribe(
+      (pdf) => {
+        // const blob = new Blob([pdf],{type:'application/pdf'});
+        const doc = new jsPDF();
+        const fileName = name + 'pdf';
 
-      doc.text(JSON.stringify(pdf),5,5)
-      doc.save(fileName);
-    },err =>{
-      console.log(err)
-    }
-    )
+        console.log(JSON.stringify(pdf));
+
+        doc.text(JSON.stringify(pdf), 5, 5);
+        doc.save(fileName);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
-  
 
   public download(fileUrl: string) {
     return this.httpClient.get(`${this.baseURL}/download?fileUrl=${fileUrl}`, {
@@ -77,4 +80,3 @@ console.log(JSON.stringify(pdf))
     return this.httpClient.get(`http://localhost:25835/api/Upload/getPhotos`);
   }
 }
-

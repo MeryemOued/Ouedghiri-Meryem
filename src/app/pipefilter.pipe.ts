@@ -14,8 +14,8 @@ export class PipefilterPipe implements PipeTransform {
       return Marchands;
     }
     return Marchands.filter(marchand=>
-      marchand.Firstname.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()) ||
-      marchand.Lastname.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()) ||
+      marchand.firstname.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()) ||
+      marchand.lastname.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()) ||
       marchand.matricule?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())||
       marchand.cin?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
       // marchand.service?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())||

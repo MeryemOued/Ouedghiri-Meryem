@@ -7,33 +7,14 @@ import { Marchand } from 'src/app/shared/marchand.model';
 import { MarchandService } from 'src/app/shared/marchand.service';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
-
-// interface ItemData {
-//   id: string;
-//   matricul: string;
-//   nom: string;
-//   Address: string;
-//   cin: string;
-//   phoneNumber?: string;
-//   activiter: string;
-//   status: string;
-//   DateBirth: Date;
-//   Monthly: number;
-//   service: string;
-// }
-
 @Component({
   selector: 'app-list-marchand',
   templateUrl: './list-marchand.component.html',
   styleUrls: ['./list-marchand.component.css'],
 })
 export class ListMarchandComponent implements OnInit {
-  filterGender = [
-    { text: 'Active', value: 'true' },
-    { text: 'Pas Encore', value: 'false' }
-  ];
-  // editCache: { [key: string]: { edit: boolean; data: service.list } } = {};
-  // listOfData: ItemData[] = [];
+
+
   matricule: string;
   marchands: any = [];
   nom : any;
