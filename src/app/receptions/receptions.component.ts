@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { concat } from 'rxjs';
 import { MarchandService } from '../shared/marchand.service';
+import { PayementService } from '../shared/payement.service';
 
 @Component({
   selector: 'app-receptions',
@@ -7,12 +10,46 @@ import { MarchandService } from '../shared/marchand.service';
   styleUrls: ['./receptions.component.css']
 })
 export class ReceptionsComponent implements OnInit {
+  Form!: FormGroup;
 
-  constructor(    public service: MarchandService,
+  constructor(public service: MarchandService, public Pservice: PayementService,public fb: FormBuilder,
+
     ) { }
 
   ngOnInit(): void {
     console.log("rec")
+        this.Form = this.fb.group({
+          request_id: "",
+          amount: 0,
+          fees: 0,
+          marchand_code: [null, [Validators.required]],
+          hmac: [null, [Validators.required]],
+          secret_code: [null, [Validators.required]],
+    });
+  } 
+   AddPayement(){
+    this.Pservice.createService(this.Form.value).subscribe(
+      (res) => {
+        console.log(this.Form.value)
+        // this.resetForm(form);
+        // this.service.refreshTable();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+  onSubmit() {
+    const marchand_code = this.Form.controls["marchand_code"].value+""; 
+    const amount = this.Form.controls["amount"].value;
+    const secretKey = this.Form.controls["secret_code"].value;
+    const hmac = amount +""+marchand_code+""+secretKey;
+    //hmac.concat(secretKey)
+    //this.Form.controls['hmac'].setValue(hmac)
+    console.log(hmac+"hmac"); 
+    this.Form.controls["hmac"].setValue(hmac)
+    this.Form.controls["request_id"].setValue(marchand_code+""+amount)
+    this.AddPayement();
   }
 
    listOfData = [
@@ -57,6 +94,5 @@ export class ReceptionsComponent implements OnInit {
       address: 'Dublin No. 2 Lake Park'
     }
   ];
-  combinedArray: { feedback: any, results: any }[] = [];
 
 }

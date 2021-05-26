@@ -7,5 +7,5 @@ export class Operations {
     json_data? :string ;
     date_expiration? : string ;
     date_request? : string;
-    token : string;
+    // token : string;
 }

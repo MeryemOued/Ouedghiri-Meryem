@@ -31,6 +31,7 @@ export class MarchandService {
 
 
   createService(data: any) {
+    console.log(data)
     return this.httpClient.post(this.baseURL, data);
   }
 

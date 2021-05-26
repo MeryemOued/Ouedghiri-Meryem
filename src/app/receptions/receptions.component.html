@@ -1,7 +1,61 @@
 <p>receptions works!</p>
 <!-- <input nz-input id="Matricule" name="Matricule" formControlName="matricule" /> -->
+<form nz-form [nzLayout]="'vertical'" autocomplete="off" #form="ngForm" (ngSubmit)="onSubmit()" [formGroup]="Form">
 
-<nz-table #fixedTable   [nzScroll]="{ x: '1150px', y: '240px' }">
+
+    <div nz-col class="gutter-row" nzSpan="6">
+      <!-- Amount -->
+      <nz-form-item>
+        <nz-form-label nzFor="Matricule">Amount</nz-form-label>
+        <nz-form-control nzErrorTip="Amount Obligatoir!">
+          <input nz-input id="amount" name="amount" formControlName="amount" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Fees-->
+      <nz-form-item>
+        <nz-form-label nzFor="cin">Fees</nz-form-label>
+        <nz-form-control nzErrorTip="Cin Obligatoir!">
+          <input nz-input id="fees" name="fees" formControlName="fees" />
+        </nz-form-control>
+      </nz-form-item>
+
+       <!-- Code Marchand -->
+      <nz-form-item>
+        <nz-form-label nzFor="nom">Code Marchand</nz-form-label>
+        <nz-form-control nzErrorTip="Nom Obligatoir!">
+          <input nz-input id="marchand_code" name="=marchand_code" formControlName="marchand_code" />
+        </nz-form-control>
+      </nz-form-item>
+
+    </div>
+    <div nz-col class="gutter-row" nzSpan="6">
+       <!-- Secret Key -->
+      <nz-form-item>
+        <nz-form-label nzFor="nom">Code Sécurité</nz-form-label>
+        <nz-form-control nzErrorTip="Nom Obligatoir!">
+          <input nz-input id="marchand_code" name="=marchand_code" formControlName="secret_code" />
+        </nz-form-control>
+      </nz-form-item>
+
+  </div>
+
+  <!-- BUTTON ADD -->
+  <div nz-row nzJustify="center">
+    <div nz-col nzSpan="6">
+      <nz-form-item nz-row class="register-area">
+        <nz-form-control [nzSpan]="14" [nzOffset]="6">
+          <button nz-button nzType="primary" type="submit">Ajouter</button>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+</form>
+
+
+<!-- //////////////////////// -->
+<nz-table #fixedTable  [nzScroll]="{ x: '1150px', y: '240px' }">
     <thead>
       <tr>
         <th nzLeft>Marchand</th>

@@ -111,7 +111,6 @@ export class AddMarchandComponent implements OnInit {
       if (this.Form.valid) {
 
         const id = this.route.snapshot.paramMap.get('idMerchant');
-     
         // this.Form.controls['idMerchant'].setValue(id);
         this.UpdateRow();
         this.createNotification('info', 'Modifier');
@@ -121,7 +120,7 @@ export class AddMarchandComponent implements OnInit {
       if (this.Form.valid) {
         // this.Form.controls["imgPath"].setValue(this.response.dbPath);
         console.log('ADD NOW');
-      console.log(this.fileService.getPhotos())
+        console.log(this.fileService.getPhotos())
         this.AddMarchand();
         this.showModal();
         this.createNotification('success', 'Ajouter');
