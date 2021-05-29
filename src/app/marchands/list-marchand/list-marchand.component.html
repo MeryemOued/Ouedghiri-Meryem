@@ -2,8 +2,7 @@
   <div nz-col nzSpan="8"></div>
   <div nz-col nzSpan="8">
     <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-      <input type="text" nz-input placeholder="input search text"  />
-    </nz-input-group>
+      <input type="text" nz-input placeholder="input search text" [(ngModel)]="matricule" />    </nz-input-group>
     <ng-template #suffixIconButton>
       <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
     </ng-template>
@@ -24,7 +23,7 @@
         <th>Matricule</th>
         <th>CIN</th>
         <th>N° Telephone</th>
-        <!-- <th>Activiter</th> -->
+        <!-- <th>Activiteùr</th> -->
         <th>Status</th>
         <th>Solde</th>
         <!-- <th>Service</th> -->
@@ -33,10 +32,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of (service.list);let i=index">
+      <tr *ngFor="let data of (service.list|pipefilter:matricule)">
 
         <td nzLeft> <a (click)="open(data)">
-            <nz-avatar nzIcon="user"></nz-avatar> {{ data?.firstname }} 
+            <nz-avatar nzIcon="user"></nz-avatar> {{ data?.firstname }}
           </a>
           <nz-drawer [nzVisible]="visible" [nzWidth]="640" [nzClosable]="false" (nzOnClose)="close()">
             <ng-container *nzDrawerContent>
@@ -45,7 +44,7 @@
                 <nz-descriptions-item nzTitle="prenom" [nzSpan]="1">
                   <p>{{selectedRow?.firstname}}</p>
                 </nz-descriptions-item>
-                                <!-- <nz-descriptions-item nzTitle="Nom" [nzSpan]="1">
+                <!-- <nz-descriptions-item nzTitle="Nom" [nzSpan]="1">
                   <p>{{selectedRow?.Lastname}}</p>
                 </nz-descriptions-item> -->
                 <nz-descriptions-item nzTitle="compte Marchand" [nzSpan]="1">----</nz-descriptions-item>

@@ -13,6 +13,7 @@ export class PayementService {
   list: Operations[];
   
   createService(data: any) {
+    
     console.log(data)
     return this.httpClient.post(this.baseURL, data);
   }

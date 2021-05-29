@@ -11,7 +11,7 @@ import { PayementService } from '../shared/payement.service';
 })
 export class ReceptionsComponent implements OnInit {
   Form!: FormGroup;
-
+  // secret_code:string = "";
   constructor(public service: MarchandService, public Pservice: PayementService,public fb: FormBuilder,
 
     ) { }
@@ -19,15 +19,22 @@ export class ReceptionsComponent implements OnInit {
   ngOnInit(): void {
     console.log("rec")
         this.Form = this.fb.group({
-          request_id: "",
+          requeset_id: "",
           amount: 0,
           fees: 0,
-          marchand_code: [null, [Validators.required]],
-          hmac: [null, [Validators.required]],
-          secret_code: [null, [Validators.required]],
+          marchand_code: "",
+          hmac: "",
+          json_data :"",
+           token :"",
+
+          date_expiration :"",
+          date_request :"",
+          // secret_code: [null, [Validators.required]],
     });
   } 
    AddPayement(){
+    console.log(this.Form.value)
+
     this.Pservice.createService(this.Form.value).subscribe(
       (res) => {
         console.log(this.Form.value)
@@ -35,21 +42,24 @@ export class ReceptionsComponent implements OnInit {
         // this.service.refreshTable();
       },
       (err) => {
+        console.log("not ok")
         console.log(err);
       }
     );
   }
   onSubmit() {
-    const marchand_code = this.Form.controls["marchand_code"].value+""; 
+    const marchand_code = this.Form.controls["marchand_code"].value; 
     const amount = this.Form.controls["amount"].value;
-    const secretKey = this.Form.controls["secret_code"].value;
-    const hmac = amount +""+marchand_code+""+secretKey;
+    
+    // const secretKey = this.Form.controls["hmac"].value;
+    const hmac = amount +""+marchand_code+"";
     //hmac.concat(secretKey)
     //this.Form.controls['hmac'].setValue(hmac)
     console.log(hmac+"hmac"); 
     this.Form.controls["hmac"].setValue(hmac)
-    this.Form.controls["request_id"].setValue(marchand_code+""+amount)
+    this.Form.controls["requeset_id"].setValue(marchand_code+""+amount)
     this.AddPayement();
+    console.log(this.Pservice.list)
   }
 
    listOfData = [
