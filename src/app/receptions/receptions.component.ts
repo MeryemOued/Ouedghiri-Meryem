@@ -25,8 +25,7 @@ export class ReceptionsComponent implements OnInit {
           marchand_code: "",
           hmac: "",
           json_data :"",
-           token :"",
-
+          token :"",
           date_expiration :"",
           date_request :"",
           // secret_code: [null, [Validators.required]],
@@ -50,7 +49,7 @@ export class ReceptionsComponent implements OnInit {
   onSubmit() {
     const marchand_code = this.Form.controls["marchand_code"].value; 
     const amount = this.Form.controls["amount"].value;
-    
+
     // const secretKey = this.Form.controls["hmac"].value;
     const hmac = amount +""+marchand_code+"";
     //hmac.concat(secretKey)

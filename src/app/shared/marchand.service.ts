@@ -4,6 +4,9 @@ import { Marchand } from './marchand.model';
 import { saveAs } from 'file-saver';
 import jsPDF from 'jspdf';
 import { jsDocComment } from '@angular/compiler';
+import { Observable, throwError } from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
+import { ModalRef } from 'ng-zorro-antd-mobile';
 
 @Injectable({
   providedIn: 'root',
@@ -22,17 +25,37 @@ export class MarchandService {
       .then((res) => {this.list = res as unknown as Marchand[]});
   }
   public upload(formData: FormData) {
-    return this.httpClient.post(`http://localhost:44341/api/Upload`, formData, {
+    return this.httpClient.post(`https://localhost:44341/api/Attachement/upload`, formData, {
       reportProgress: true,
       observe: 'events', 
     });
+    
+  }
+  // mapToIdMerchant() : Observable<Marchand> {
+  //     return this.httpClient.get<Marchand>(this.baseURL).pipe(
+  //       map(mr => new Marchand[].idMerchant)
+  //     );
+  //   }
+  
+
+  createAttachement(data: any) {
+    console.log(data)
+    console.log("attach")
+    return this.httpClient.post(`https://localhost:44341/api/Attachement`, data);
   }
 
 
-
   createService(data: any) {
-    console.log(data)
-    return this.httpClient.post(this.baseURL, data);
+    // var r = this.getService();
+    // console.log(r.toPromise())
+    // console.log(this.list)
+    // console.log(this.FormData)
+ 
+    // const res =this.list[this.list.length - 1];
+    // console.log(res)
+var id :any;
+  return  this.httpClient.post(this.baseURL, data)
+
   }
 
   putService(data: any) {

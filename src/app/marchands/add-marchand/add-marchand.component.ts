@@ -24,6 +24,7 @@ import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 import { ToastrService } from 'ngx-toastr';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { HttpEventType } from '@angular/common/http';
+// import { stringify } from 'querystring';
 // import { marchandsdata } from "src/app/files/marchandsdata.data";
 
 @Component({
@@ -39,6 +40,7 @@ export class AddMarchandComponent implements OnInit {
   dataform: any;
   marchand: Marchand;
   Form!: FormGroup;
+  FormAttachement!: FormGroup;
   marchands: any;
   public progress: number;
   public message: string;
@@ -72,9 +74,11 @@ export class AddMarchandComponent implements OnInit {
         this.onUploadFinished.emit(event.body);
       }
     });
+    this.FormAttachement.controls["BaseUrl"].setValue(fileToUpload.name);
+
     // this.Form.controls['imgPath'].setValue(fileToUpload.name);
-    console.log(this.Form.controls['imgPath']);
-    console.log(fileToUpload);
+    // console.log(this.Form.controls['imgPath']);
+    // console.log(fileToUpload);
   };
 
   
@@ -91,6 +95,7 @@ export class AddMarchandComponent implements OnInit {
     this.service.getService().subscribe(
       (data) => {
         return (this.marchands = data);
+
       },
       (err) => {
         console.log('DATA NOT FOUND');
@@ -99,6 +104,7 @@ export class AddMarchandComponent implements OnInit {
   }
 
   onSubmit() {
+
     let req: any;
     for (const i in this.Form.controls) {
       this.Form.controls[i].markAsDirty();
@@ -118,9 +124,9 @@ export class AddMarchandComponent implements OnInit {
       }
     } else {
       if (this.Form.valid) {
-        // this.Form.controls["imgPath"].setValue(this.response.dbPath);
+
+      //  this.FormAttachement.controls["IdMerchant"].setValue(this.idins);
         console.log('ADD NOW');
-        console.log(this.fileService.getPhotos())
         this.AddMarchand();
         this.showModal();
         this.createNotification('success', 'Ajouter');
@@ -130,19 +136,22 @@ export class AddMarchandComponent implements OnInit {
       }
     }
   }
-
+// idins : any
   // ADD-MARCHAND
-
+idinserted : string
   AddMarchand() {
-    this.service.createService(this.Form.value).subscribe(
-      (res) => {
-        // this.resetForm(form);
-        this.service.refreshTable();
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+     this.service.createService(this.Form.value).subscribe(res=>{
+      const idins =res
+      console.log('post return')
+      console.log(res)
+
+      this.FormAttachement.controls["IdMerchant"].setValue(idins);
+      this.AddAttachement()
+
+
+    });
+
+  
   }
   getDataById(id: any) {
     this.service.getIdService(id).subscribe((res) => {
@@ -166,7 +175,17 @@ export class AddMarchandComponent implements OnInit {
   resetForm() {
     this.Form.reset();
   }
+AddAttachement(){
+  //this.FormAttachement.controls["idMerchant"].setValue(this.Form.controls['idMerchant']);
 
+  this.service.createAttachement(this.FormAttachement.value).subscribe(
+    (res) => {
+    },
+    (err) => {
+      console.log(err);
+    }
+  );
+}
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('idMerchant');
     if (id != null) {
@@ -204,27 +223,18 @@ export class AddMarchandComponent implements OnInit {
       address: [null, [Validators.required]],
       cin: [null, [Validators.required]],
       childrenNumber: [0, [Validators.required]],
-      // activiter: [null, [Validators.required]],
       monthly: [0, [Validators.required]],
-      // service: [null, [Validators.required]],
       dateBirth: [null],
       statue: [false],
-      // imgPath: '',
     });
-  }
-  // UPLOAD
-  // handleChange({ file, fileList }: NzUploadChangeParam): void {
-  //   const Statue= file.status;
+    this.FormAttachement = this.fb.group({
+      IdAttachement:0,
+IdMerchant:0,
+BaseUrl : [null, [Validators.required]]});
+}
 
-  //   if (Statue!== 'uploading') {
-  //     console.log(file, fileList);
-  //   }
-  //   if (Statue=== 'done') {
-  //     this.msg.success(`${file.name} file uploaded successfully.`);
-  //   } else if (Statue=== 'error') {
-  //     this.msg.error(`${file.name} file upload failed.`);
-  //   }
-  // }
+
+ 
   isVisible = false;
   isConfirmLoading = false;
 
@@ -244,3 +254,4 @@ export class AddMarchandComponent implements OnInit {
     this.isVisible = false;
   }
 }
+
