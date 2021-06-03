@@ -41,9 +41,17 @@
     </div>
 
     <div nz-col class="gutter-row" nzSpan="6">
+      
+            <!-- Nom  -->
+            <nz-form-item>
+              <nz-form-label nzRequired nzFor="nom">Nom</nz-form-label>
+              <nz-form-control nzErrorTip="Nom Obligatoir!">
+                <input nz-input id="Lastname" name="lastname" formControlName="lastname" />
+              </nz-form-control>
+            </nz-form-item>
       <!-- Matricule -->
       <nz-form-item>
-        <nz-form-label nzFor="Matricule">Matricule</nz-form-label>
+        <nz-form-label nzRequired nzFor="Matricule">Matricule</nz-form-label>
         <nz-form-control nzErrorTip="Nom Obligatoir!">
           <input nz-input id="Matricule" name="Matricule" formControlName="matricule" />
         </nz-form-control>
@@ -51,14 +59,14 @@
 
       <!-- Cin-->
       <nz-form-item>
-        <nz-form-label nzFor="cin">CIN</nz-form-label>
+        <nz-form-label nzRequired nzFor="cin">CIN</nz-form-label>
         <nz-form-control nzErrorTip="Cin Obligatoir!">
           <input nz-input id="Cin" name="Cin" formControlName="cin" />
         </nz-form-control>
       </nz-form-item>
       <!-- TEL -->
       <nz-form-item>
-        <nz-form-label nzFor="phoneNumber">Numero de téléphone</nz-form-label>
+        <nz-form-label nzRequired nzFor="phoneNumber">Numero de téléphone</nz-form-label>
         <nz-form-control [nzValidateStatus]="Form.controls['phoneNumber']" nzErrorTip="Please input your phone number!">
           <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
             <ng-template #addOnBeforeTemplate>
@@ -100,29 +108,27 @@
     <div nz-col class="gutter-row" nzSpan="6">
       <!-- Nom Complet -->
       <nz-form-item>
-        <nz-form-label nzFor="nom">Nom</nz-form-label>
+        <nz-form-label nzRequired nzFor="nom">Prenom</nz-form-label>
         <nz-form-control nzErrorTip="Nom Obligatoir!">
           <input nz-input id="Firstname" name="=firstname" formControlName="firstname" />
-          <input nz-input id="Lastname" name="lastname" formControlName="lastname" />
         </nz-form-control>
       </nz-form-item>
 
       <!-- Address -->
       <nz-form-item>
-        <nz-form-label nzFor="Address">Address</nz-form-label>
+        <nz-form-label nzRequired nzFor="Address">Address</nz-form-label>
         <nz-form-control nzErrorTip="Address Obligatoir!">
           <input nz-input id="Address" name="Address" formControlName="address">
         </nz-form-control>
       </nz-form-item>
       <!-- DATE DE NAISSANCE -->
-      <nz-form-item>
-        <nz-form-label nzFor="dateBirth">Date de Naissance</nz-form-label>
-        <!-- [nzSm]="16" [nzXs]="24" -->
-        <nz-form-control>
-          <nz-date-picker id="dateBirth" name="dateBirth" formControlName="dateBirth"></nz-date-picker>
-          <br />
-        </nz-form-control>
-      </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label  nzFor="birthDate">Date de naissance</nz-form-label>
+          <nz-form-control nzErrorTip="The input is not valid E-mail!">
+            <nz-date-picker id="dateBirth" name="dateBirth" formControlName="dateBirth" nzPlaceHolder="yyyy/MM/dd" [nzFormat]="'yyyy/MM/dd'"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
       <!-- Nombre d'enfant -->
       <nz-form-item>
         <nz-form-label nzFor="nbre">Nombre d'enfants</nz-form-label>
@@ -133,16 +139,25 @@
           </label>
         </nz-form-control>
       </nz-form-item>
-
+      
+      <!-- request_id -->
+      <!-- <nz-form-item>
+        <nz-form-label nzFor="request_id">request_id</nz-form-label>
+        <nz-form-control nzErrorTip="request_id Obligatoir!">
+          <input nz-input id="request_id" name="request_id" formControlName="request_id">
+        </nz-form-control>
+      </nz-form-item> -->
 
 
 
 
       <!-- Sold -->
       <nz-form-item>
-        <nz-form-label nzFor="monthly">Sold e courant</nz-form-label>
+        <nz-form-label nzFor="monthly">Montant</nz-form-label>
         <nz-form-control nzErrorTip="Sold Obligatoir!">
-          <input nz-input id="monthly" id="monthly" name="monthly" formControlName="monthly" />
+          <!-- <input nz-input id="monthly" id="monthly" name="monthly" formControlName="monthly" /> -->
+          <nz-input-number placeholder="Nombre d'enfants" id="monthly" name="monthly"
+          formControlName="monthly"></nz-input-number>
         </nz-form-control>
       </nz-form-item>
 

@@ -24,6 +24,7 @@ import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 import { ToastrService } from 'ngx-toastr';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { HttpEventType } from '@angular/common/http';
+import { PayementService } from 'src/app/shared/payement.service';
 // import { stringify } from 'querystring';
 // import { marchandsdata } from "src/app/files/marchandsdata.data";
 
@@ -48,6 +49,7 @@ export class AddMarchandComponent implements OnInit {
   public photos: string[] = [];
 
   @Output() public onUploadFinished = new EventEmitter();
+  token: Object;
   constructor(
     public fb: FormBuilder,
     public _i18n: NzI18nService,
@@ -55,7 +57,8 @@ export class AddMarchandComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private notification: NzNotificationService,
-    private fileService: MarchandService
+    private fileService: MarchandService,
+    public Pservice: PayementService
   ) {}
   public uploadFile = (files: any) => {
     if (files.length === 0) {
@@ -130,7 +133,7 @@ export class AddMarchandComponent implements OnInit {
         this.AddMarchand();
         this.showModal();
         this.createNotification('success', 'Ajouter');
-        this.resetForm();
+        // this.resetForm();
       } else {
         this.createNotification('error', 'Erreur');
       }
@@ -141,14 +144,10 @@ export class AddMarchandComponent implements OnInit {
 idinserted : string
   AddMarchand() {
      this.service.createService(this.Form.value).subscribe(res=>{
-      const idins =res
       console.log('post return')
-      console.log(res)
-
-      this.FormAttachement.controls["IdMerchant"].setValue(idins);
-      this.AddAttachement()
-
-
+      // console.log(res+"")
+      //this.FormAttachement.controls["IdMerchant"].setValue(idins);
+      //this.AddAttachement()
     });
 
   
@@ -159,40 +158,80 @@ idinserted : string
     });
     return this.dataform;
   }
+  AddPayement(listOfData :any){
+    console.log(listOfData)
+
+    this.Pservice.createService(listOfData).subscribe(
+      (res) => {
+         console.log(res)
+        // console.log(this.Form.value)
+        // this.resetForm(form);
+        // this.service.refreshTable();
+        // this.Form.controls["token"].setValue(res);
+
+      },
+      (err) => {
+        console.log("not ok")
+        console.log(err);
+      }
+    );
+  }
   UpdateRow() {
     const value = this.Form.value;
-    // console.log( "UP" +value)
-    // console.log(this.Form.value)
     this.service.putService(value).subscribe(
       (res) => {
-        this.service.refreshTable();
+        // console.log("putservice")
+        // let listOfData =[
+        //   {
+        //     request_id: this.Form.controls["matricule"] ,
+        //     amount: Number(this.Form.controls["monthly"])  ,
+        //     fees: 85 ,
+        //     marchand_code: this.Form.controls["matricule"] ,
+        //     hmac: this.Form.controls["matricule"] ,
+        //   }
+        // ]
+        // console.log(listOfData)
+        // this.AddPayement(listOfData)
+        // this.token = res;
+        // console.log(res)
+        // this.service.refreshTable();
+
       },
       (err) => {
         console.log(err);
       }
     );
-  }
+
+//     if(this.token!=null){
+  
+//       this.service.postToken(listOfData);
+//     }
+// console.log(this.token)
+   }
   resetForm() {
     this.Form.reset();
   }
-AddAttachement(){
-  //this.FormAttachement.controls["idMerchant"].setValue(this.Form.controls['idMerchant']);
+//AddAttachement(){
+//   //this.FormAttachement.controls["idMerchant"].setValue(this.Form.controls['idMerchant']);
 
-  this.service.createAttachement(this.FormAttachement.value).subscribe(
-    (res) => {
-    },
-    (err) => {
-      console.log(err);
-    }
-  );
-}
+//   this.service.createAttachement(this.FormAttachement.value).subscribe(
+//     (res) => {
+//     },
+//     (err) => {
+//       console.log(err);
+//     }
+//   );
+// }
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('idMerchant');
     if (id != null) {
       this.service.getIdService(id).subscribe((res) => {
         this.dataform = res;
+      console.log("dataform")
+      console.log( this.dataform)
         this.Form = this.fb.group({
           idMerchant: this.dataform.idMerchant,
+          // request_id: this.dataform.request_id,
           phoneNumber: this.dataform.phoneNumber,
           phoneNumberPrefix: ['+212'],
           firstname: this.dataform.firstname,
@@ -202,7 +241,7 @@ AddAttachement(){
           cin: this.dataform.cin,
           childrenNumber: this.dataform.childrenNumber,
           // activiter: this.dataform.activiter,
-          monthly: this.dataform.Monthly,
+          monthly: Number( this.dataform.monthly),
           // service: this.dataform.service,
           dateBirth: this.dataform.dateBirth,
           statue: this.dataform.statue,
@@ -215,7 +254,7 @@ AddAttachement(){
 
     this.Form = this.fb.group({
       phoneNumberPrefix: ['+212'],
-      idMerchant: 0,
+      // request_id:[null, [Validators.required]],
       phoneNumber: [null, [Validators.required]],
       lastname: [null, [Validators.required]],
       firstname: [null, [Validators.required]],
@@ -229,7 +268,7 @@ AddAttachement(){
     });
     this.FormAttachement = this.fb.group({
       IdAttachement:0,
-IdMerchant:0,
+// IdMerchant:0,
 BaseUrl : [null, [Validators.required]]});
 }
 

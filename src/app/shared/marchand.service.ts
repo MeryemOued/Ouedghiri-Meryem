@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Marchand } from './marchand.model';
 import { saveAs } from 'file-saver';
@@ -12,6 +12,7 @@ import { ModalRef } from 'ng-zorro-antd-mobile';
   providedIn: 'root',
 })
 export class MarchandService {
+
   constructor(private httpClient: HttpClient) {}
   // marchand : Marchand;
   readonly baseURL = 'https://localhost:44341/api/Marchand';
@@ -23,7 +24,7 @@ export class MarchandService {
       .get(this.baseURL)
       .toPromise()
       .then((res) => {this.list = res as unknown as Marchand[]});
-  }
+  } 
   public upload(formData: FormData) {
     return this.httpClient.post(`https://localhost:44341/api/Attachement/upload`, formData, {
       reportProgress: true,
@@ -44,8 +45,11 @@ export class MarchandService {
     return this.httpClient.post(`https://localhost:44341/api/Attachement`, data);
   }
 
+   file ="7al"
 
   createService(data: any) {
+    console.log(data)
+    console.log("55")
     // var r = this.getService();
     // console.log(r.toPromise())
     // console.log(this.list)
@@ -53,8 +57,7 @@ export class MarchandService {
  
     // const res =this.list[this.list.length - 1];
     // console.log(res)
-var id :any;
-  return  this.httpClient.post(this.baseURL, data)
+  return  this.httpClient.post(this.baseURL,data)
 
   }
 
@@ -102,5 +105,10 @@ var id :any;
 
   public getPhotos() {
     return this.httpClient.get(`http://localhost:25835/api/Upload/getPhotos`);
+  }
+
+  //////////////////////// CASH PLUS /////////////////////////////
+  public postToken(data:any) {
+   return this.httpClient.post(`https://localhost:44341/api/Operation`,data)
   }
 }

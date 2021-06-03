@@ -1,0 +1,13 @@
+.Paid {
+    background-color: green;
+    color:white;
+}
+.notPaid {
+    background-color: red;
+    color:white;
+
+}
+[nz-button] {
+    margin-right: 8px;
+    margin-bottom: 12px;
+  }
