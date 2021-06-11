@@ -6,49 +6,17 @@
       <img nz-image zFlex="auto" nzSrc="assets/crud.png" alt="" style="  max-width: 100%;
         max-height: 100%;" />
     </div>
-    <div nz-col class="gutter-row" nzSpan="4">
-      <!-- BUTTON Upload -->
-      <!-- <nz-upload
-      nzType="drag"
-      [nzMultiple]="true"
-     
-     
-      >
-      <p class="ant-upload-drag-icon">
-        <i nz-icon nzType="inbox"></i>
-      </p>
-      <p class="ant-upload-text"    (change)="uploadFile(file.files)"  (click)="file.click()" >Click or drag file to this area to upload</p>
-      <p class="ant-upload-hint">
-        Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files
-      </p>
-      
-      </nz-upload> -->
-      <div class="row" style="margin-bottom:15px;">
-        <div class="col-md-3">
-          <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;"
-            multiple accept=".png, .jpg, .jpeg">
-          <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
-        </div>
-        <div class="col-md-4">
-          <span class="upload" *ngIf="progress > 0">
-            {{progress}}%
-          </span>
-          <span class="upload" *ngIf="message">
-            {{message}}
-          </span>
-        </div>
-      </div>
-    </div>
+
 
     <div nz-col class="gutter-row" nzSpan="6">
-      
-            <!-- Nom  -->
-            <nz-form-item>
-              <nz-form-label nzRequired nzFor="nom">Nom</nz-form-label>
-              <nz-form-control nzErrorTip="Nom Obligatoir!">
-                <input nz-input id="Lastname" name="lastname" formControlName="lastname" />
-              </nz-form-control>
-            </nz-form-item>
+
+      <!-- Nom  -->
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="nom">Nom</nz-form-label>
+        <nz-form-control nzErrorTip="Nom Obligatoir!">
+          <input nz-input id="Lastname" name="lastname" formControlName="lastname" />
+        </nz-form-control>
+      </nz-form-item>
       <!-- Matricule -->
       <nz-form-item>
         <nz-form-label nzRequired nzFor="Matricule">Matricule</nz-form-label>
@@ -78,32 +46,17 @@
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
+        <!-- Platform -->
+      <nz-form-item nzFlex>
+        <nz-form-label nzRequired nzFor="nom">Platfrom</nz-form-label>
 
-      <!-- Activiter -->
-      <!-- <nz-form-item>
-        <nz-form-label nzFor="activiter">Activiter</nz-form-label>
-        <nz-form-control nzErrorTip="Activirer Obligatoir!">
-          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selectionnez une Avtiviter" id="activiter"
-            name="activiter" formControlName="activiter">
-            <nz-option nzLabel="Activiter1" nzValue="Activiter1"></nz-option>
-            <nz-option nzLabel="Activiter2" nzValue="Activiter1"></nz-option>
-            <nz-option nzLabel="Activiter3" nzValue="Activiter1"></nz-option>
-          </nz-select>
-        </nz-form-control>
+        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Seléctionner un Platform" formControlName="searchValue"
+          (ngModelChange)=onSearchChange($event)>
+          <nz-option *ngFor="let item of service.listPlatform" [nzLabel]="item.label"
+            [nzValue]="item.idPlatform"></nz-option>
+        </nz-select>
+      </nz-form-item>
 
-      </nz-form-item> -->
-      <!-- Service -->
-      <!-- <nz-form-item>
-        <nz-form-label nzFor="status">Service</nz-form-label>
-        <nz-form-control nzErrorTip="Service Obligatoir!">
-          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Selectionnez une Avtiviter" id="service" name="service"
-            formControlName="service">
-            <nz-option nzLabel="Activiter1" nzValue="1"></nz-option>
-            <nz-option nzLabel="Activiter2" nzValue="2"></nz-option>
-            <nz-option nzLabel="Activiter3" nzValue="3"></nz-option>
-          </nz-select>
-        </nz-form-control>
-      </nz-form-item> -->
     </div>
     <div nz-col class="gutter-row" nzSpan="6">
       <!-- Nom Complet -->
@@ -123,12 +76,13 @@
       </nz-form-item>
       <!-- DATE DE NAISSANCE -->
 
-        <nz-form-item>
-          <nz-form-label  nzFor="birthDate">Date de naissance</nz-form-label>
-          <nz-form-control nzErrorTip="The input is not valid E-mail!">
-            <nz-date-picker id="dateBirth" name="dateBirth" formControlName="dateBirth" nzPlaceHolder="yyyy/MM/dd" [nzFormat]="'yyyy/MM/dd'"></nz-date-picker>
-          </nz-form-control>
-        </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzFor="birthDate">Date de naissance</nz-form-label>
+        <nz-form-control nzErrorTip="The input is not valid E-mail!">
+          <nz-date-picker id="dateBirth" name="dateBirth" formControlName="dateBirth" nzPlaceHolder="yyyy/MM/dd"
+            [nzFormat]="'yyyy/MM/dd'"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
       <!-- Nombre d'enfant -->
       <nz-form-item>
         <nz-form-label nzFor="nbre">Nombre d'enfants</nz-form-label>
@@ -139,45 +93,40 @@
           </label>
         </nz-form-control>
       </nz-form-item>
-      
-      <!-- request_id -->
-      <!-- <nz-form-item>
-        <nz-form-label nzFor="request_id">request_id</nz-form-label>
-        <nz-form-control nzErrorTip="request_id Obligatoir!">
-          <input nz-input id="request_id" name="request_id" formControlName="request_id">
-        </nz-form-control>
-      </nz-form-item> -->
 
+   <!-- ACTIVITY -->
+      <nz-form-item nzFlex>
+        <nz-form-label nzRequired nzFor="nom">Activiter</nz-form-label>
 
-
-
-      <!-- Sold -->
-      <nz-form-item>
-        <nz-form-label nzFor="monthly">Montant</nz-form-label>
-        <nz-form-control nzErrorTip="Sold Obligatoir!">
-          <!-- <input nz-input id="monthly" id="monthly" name="monthly" formControlName="monthly" /> -->
-          <nz-input-number placeholder="Nombre d'enfants" id="monthly" name="monthly"
-          formControlName="monthly"></nz-input-number>
-        </nz-form-control>
+        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Seléctionner une Activiter" formControlName="searchValues"
+          (ngModelChange)=onSearchChanges($event)>
+          <nz-option *ngFor="let item of service.listActivity" [nzLabel]="item.label" [nzValue]="item.idActivity">
+          </nz-option>
+        </nz-select>
       </nz-form-item>
 
-      <!-- Statue-->
-      <div style="margin: 20px;">
-        <nz-form-item>
-          <nz-form-label nzFor="Statue">Status</nz-form-label>
-          <nz-form-control text-align-center [nzSm]="12" [nzXs]="24" nzErrorTip="StatueObligatoir!">
-            <nz-switch id="Statue" name="statue" formControlName="statue"></nz-switch>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
+
 
     </div>
 
-    <!-- <div nz-col class="gutter-row" nzSpan="6">
+    <div class="gutter-row" nzSpan="4" nz-row nzJustify="space-around" nzAlign="middle">
 
-    </div> -->
-
-
+      <div class="row" style="margin-bottom:15px;">
+        <div class="col-md-3">
+          <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;"
+            multiple accept=".png, .jpg, .jpeg">
+          <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
+        </div>
+        <div class="col-md-4">
+          <span class="upload" *ngIf="progress > 0">
+            {{progress}}%
+          </span>
+          <span class="upload" *ngIf="message">
+            {{message}}
+          </span>
+        </div>
+      </div>
+    </div>
 
   </div>
 

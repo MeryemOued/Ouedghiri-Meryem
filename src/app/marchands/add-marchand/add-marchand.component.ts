@@ -25,6 +25,8 @@ import { ToastrService } from 'ngx-toastr';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { HttpEventType } from '@angular/common/http';
 import { PayementService } from 'src/app/shared/payement.service';
+import { Platform } from 'src/app/shared/model/platform';
+import { Activity } from 'src/app/shared/model/activity';
 // import { stringify } from 'querystring';
 // import { marchandsdata } from "src/app/files/marchandsdata.data";
 
@@ -34,23 +36,31 @@ import { PayementService } from 'src/app/shared/payement.service';
   styleUrls: ['./add-marchand.component.css'],
 })
 export class AddMarchandComponent implements OnInit {
-  selectedValue = null;
+
   switchValue = true;
   date = null;
   submitted = false;
   dataform: any;
   marchand: Marchand;
+  selectedPlatform : Platform;
+  selectedActivity:Activity;
+
   Form!: FormGroup;
   FormAttachement!: FormGroup;
+  FormPlatform!: FormGroup;
+  FormActivity!: FormGroup;
   marchands: any;
   public progress: number;
   public message: string;
+  searchValue: any;
+  searchValues: any;
 
   public photos: string[] = [];
 
   @Output() public onUploadFinished = new EventEmitter();
   token: Object;
   constructor(
+
     public fb: FormBuilder,
     public _i18n: NzI18nService,
     public service: MarchandService,
@@ -64,11 +74,9 @@ export class AddMarchandComponent implements OnInit {
     if (files.length === 0) {
       return;
     }
-
     let fileToUpload = <File>files[0];
     const formData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
-
     this.fileService.upload(formData).subscribe((event: any) => {
       if (event.type === HttpEventType.UploadProgress)
         this.progress = Math.round((100 * event.loaded) / event.total);
@@ -77,14 +85,9 @@ export class AddMarchandComponent implements OnInit {
         this.onUploadFinished.emit(event.body);
       }
     });
-    this.FormAttachement.controls["BaseUrl"].setValue(fileToUpload.name);
-
-    // this.Form.controls['imgPath'].setValue(fileToUpload.name);
-    // console.log(this.Form.controls['imgPath']);
-    // console.log(fileToUpload);
+    this.FormAttachement.controls['BaseUrl'].setValue(fileToUpload.name);
   };
 
-  
   // NOTIFICATION
   createNotification(type: string, titl: string): void {
     this.notification.create(
@@ -98,7 +101,6 @@ export class AddMarchandComponent implements OnInit {
     this.service.getService().subscribe(
       (data) => {
         return (this.marchands = data);
-
       },
       (err) => {
         console.log('DATA NOT FOUND');
@@ -107,7 +109,6 @@ export class AddMarchandComponent implements OnInit {
   }
 
   onSubmit() {
-
     let req: any;
     for (const i in this.Form.controls) {
       this.Form.controls[i].markAsDirty();
@@ -115,20 +116,14 @@ export class AddMarchandComponent implements OnInit {
     }
 
     if (this.route.snapshot.paramMap.get('idMerchant')) {
-
-
       if (this.Form.valid) {
-
         const id = this.route.snapshot.paramMap.get('idMerchant');
-        // this.Form.controls['idMerchant'].setValue(id);
         this.UpdateRow();
         this.createNotification('info', 'Modifier');
         this.router.navigate(['/listmarchand']);
       }
     } else {
       if (this.Form.valid) {
-
-      //  this.FormAttachement.controls["IdMerchant"].setValue(this.idins);
         console.log('ADD NOW');
         this.AddMarchand();
         this.showModal();
@@ -139,18 +134,29 @@ export class AddMarchandComponent implements OnInit {
       }
     }
   }
-// idins : any
+  onSearchChange(value: Platform) {
+    console.log("hfhfhfhfh")
+    console.log(value)
+    this.selectedPlatform = value
+  }
+  onSearchChanges(value: Activity) {
+    console.log("accctttt")
+    console.log(value)
+    this.selectedActivity = value
+  }
+  // idins : any
   // ADD-MARCHAND
-idinserted : string
+  idinserted: string;
   AddMarchand() {
-     this.service.createService(this.Form.value).subscribe(res=>{
-      console.log('post return')
-      // console.log(res+"")
-      //this.FormAttachement.controls["IdMerchant"].setValue(idins);
-      //this.AddAttachement()
-    });
+    console.log(this.selectedActivity)
+    console.log("dkhl")
+    this.Form.controls["idPlatform"].setValue(this.selectedPlatform);
+    this.Form.controls["idActivity"].setValue(this.selectedActivity);
 
-  
+    this.service.createService(this.Form.value).subscribe((res) => {
+      console.log('post return');
+
+    });
   }
   getDataById(id: any) {
     this.service.getIdService(id).subscribe((res) => {
@@ -158,80 +164,38 @@ idinserted : string
     });
     return this.dataform;
   }
-  AddPayement(listOfData :any){
-    console.log(listOfData)
 
-    this.Pservice.createService(listOfData).subscribe(
-      (res) => {
-         console.log(res)
-        // console.log(this.Form.value)
-        // this.resetForm(form);
-        // this.service.refreshTable();
-        // this.Form.controls["token"].setValue(res);
-
-      },
-      (err) => {
-        console.log("not ok")
-        console.log(err);
-      }
-    );
-  }
   UpdateRow() {
     const value = this.Form.value;
     this.service.putService(value).subscribe(
       (res) => {
-        // console.log("putservice")
-        // let listOfData =[
-        //   {
-        //     request_id: this.Form.controls["matricule"] ,
-        //     amount: Number(this.Form.controls["monthly"])  ,
-        //     fees: 85 ,
-        //     marchand_code: this.Form.controls["matricule"] ,
-        //     hmac: this.Form.controls["matricule"] ,
-        //   }
-        // ]
-        // console.log(listOfData)
-        // this.AddPayement(listOfData)
-        // this.token = res;
-        // console.log(res)
-        // this.service.refreshTable();
-
       },
       (err) => {
         console.log(err);
       }
     );
 
-//     if(this.token!=null){
-  
-//       this.service.postToken(listOfData);
-//     }
-// console.log(this.token)
-   }
+  }
   resetForm() {
     this.Form.reset();
   }
-//AddAttachement(){
-//   //this.FormAttachement.controls["idMerchant"].setValue(this.Form.controls['idMerchant']);
 
-//   this.service.createAttachement(this.FormAttachement.value).subscribe(
-//     (res) => {
-//     },
-//     (err) => {
-//       console.log(err);
-//     }
-//   );
-// }
   ngOnInit(): void {
+    this.service.refreshTable();
+    this.service.refreshPlatform();
+    this.service.refreshActivity();
+    this.service.getPlatform();
     const id = this.route.snapshot.paramMap.get('idMerchant');
     if (id != null) {
       this.service.getIdService(id).subscribe((res) => {
         this.dataform = res;
-      console.log("dataform")
-      console.log( this.dataform)
+        console.log('dataform');
+        console.log(this.dataform);
         this.Form = this.fb.group({
           idMerchant: this.dataform.idMerchant,
-          // request_id: this.dataform.request_id,
+      
+          searchValue: '',
+          searchValues: '',
           phoneNumber: this.dataform.phoneNumber,
           phoneNumberPrefix: ['+212'],
           firstname: this.dataform.firstname,
@@ -240,20 +204,19 @@ idinserted : string
           address: this.dataform.address,
           cin: this.dataform.cin,
           childrenNumber: this.dataform.childrenNumber,
-          // activiter: this.dataform.activiter,
-          monthly: Number( this.dataform.monthly),
-          // service: this.dataform.service,
           dateBirth: this.dataform.dateBirth,
-          statue: this.dataform.statue,
         });
       });
       console.log('update');
     } else {
       console.log('submite');
     }
-
     this.Form = this.fb.group({
+      idPlatform : 0,
+      idActivity :0,
       phoneNumberPrefix: ['+212'],
+      searchValue: '',
+      searchValues:'',
       // request_id:[null, [Validators.required]],
       phoneNumber: [null, [Validators.required]],
       lastname: [null, [Validators.required]],
@@ -262,18 +225,29 @@ idinserted : string
       address: [null, [Validators.required]],
       cin: [null, [Validators.required]],
       childrenNumber: [0, [Validators.required]],
-      monthly: [0, [Validators.required]],
       dateBirth: [null],
-      statue: [false],
+      Platform : new Platform(),
+
     });
     this.FormAttachement = this.fb.group({
-      IdAttachement:0,
-// IdMerchant:0,
-BaseUrl : [null, [Validators.required]]});
-}
+      IdAttachement: 0,
+      // IdMerchant:0,
+      BaseUrl: [null, [Validators.required]],
+    });
 
+    this.FormPlatform = this.fb.group({
+      idActivity: 0,
+      // IdMerchant:0,
+      label: [null, [Validators.required]],
+    });
 
- 
+    this.FormActivity = this.fb.group({
+      idActivity: 0,
+      // IdMerchant:0,
+      label: [null, [Validators.required]],
+    });
+  }
+
   isVisible = false;
   isConfirmLoading = false;
 
@@ -292,5 +266,5 @@ BaseUrl : [null, [Validators.required]]});
   handleCancel(): void {
     this.isVisible = false;
   }
-}
 
+}

@@ -10,15 +10,26 @@ export class PayementService {
   readonly baseURL = 'https://localhost:44341/api/Operation';
   FormData: Operations = new Operations();
   list: Operations[];
-  refreshTable() {
-    this.httpClient.get<Operations[]>(this.baseURL).subscribe((res) => {
-      this.list = res;
-    });
-  }
-  createService(data: any) {
+  statue : boolean;
+  name : string
+//   refreshTable() {
+//     this.httpClient.get<Operations[]>(this.baseURL).subscribe((res) => {
+//       this.list = res;
+//       console.log(res);
+//     });
+//  }
+ 
+ refreshTable() {
+  this.httpClient
+    .get(this.baseURL)
+    .toPromise()
+    .then((res) => {this.list = res as unknown as Operations[]});
+} 
+
+ createService(data: any) {
     console.log(data);
     console.log('data');
-    return this.httpClient.post(this.baseURL, data, { responseType: 'text' });
+    return this.httpClient.post(this.baseURL, data, { responseType: 'text' })
   }
   Tokenstatue(data: any) {
     console.log(data);

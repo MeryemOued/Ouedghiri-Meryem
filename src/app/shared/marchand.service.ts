@@ -7,6 +7,8 @@ import { jsDocComment } from '@angular/compiler';
 import { Observable, throwError } from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import { ModalRef } from 'ng-zorro-antd-mobile';
+import { Platform } from './model/platform';
+import { Activity } from './model/activity';
 
 @Injectable({
   providedIn: 'root',
@@ -18,26 +20,49 @@ export class MarchandService {
   readonly baseURL = 'https://localhost:44341/api/Marchand';
   FormData: Marchand = new Marchand();
   list: Marchand[];
+  listPlatform: Platform[];
+  listActivity: Activity[];
+
   ma: any;
+  ///////////PLATFORM////////////
+  getPlatform() {
+    return this.httpClient.get(`https://localhost:44341/api/Platform`).subscribe(res=>{
+      console.log(res);
+    });
+  }
+  ////////
   refreshTable() {
     this.httpClient
       .get(this.baseURL)
       .toPromise()
       .then((res) => {this.list = res as unknown as Marchand[]});
   } 
+  refreshPlatform() {
+    this.httpClient
+      .get(`https://localhost:44341/api/Platform`)
+      .toPromise()
+      .then((res) => {this.listPlatform = res as unknown as Platform[]
+      console.log(res)
+      })
+       ;
+  } 
+
+  refreshActivity() {
+    this.httpClient
+      .get(`https://localhost:44341/api/Activite`)
+      .toPromise()
+      .then((res) => {this.listActivity = res as unknown as Activity[]
+      console.log(res)
+      })
+       ;
+  } 
   public upload(formData: FormData) {
-    return this.httpClient.post(`https://localhost:44341/api/Attachement/upload`, formData, {
+    return this.httpClient.post(`https://localhost:44341/api/Attachement/upload`, formData,{
       reportProgress: true,
       observe: 'events', 
     });
     
   }
-  // mapToIdMerchant() : Observable<Marchand> {
-  //     return this.httpClient.get<Marchand>(this.baseURL).pipe(
-  //       map(mr => new Marchand[].idMerchant)
-  //     );
-  //   }
-  
 
   createAttachement(data: any) {
     console.log(data)
@@ -49,20 +74,10 @@ export class MarchandService {
 
   createService(data: any) {
     console.log(data)
-    console.log("55")
-    // var r = this.getService();
-    // console.log(r.toPromise())
-    // console.log(this.list)
-    // console.log(this.FormData)
- 
-    // const res =this.list[this.list.length - 1];
-    // console.log(res)
   return  this.httpClient.post(this.baseURL,data)
-
   }
 
   putService(data: any) {
-
     console.log("PUT")
     console.log(data)
     return this.httpClient.put(`${this.baseURL}`, data);

@@ -3,53 +3,54 @@
 
   <div nz-row [nzGutter]="{ xs: 8, sm: 6, md: 24, lg: 32 }">
 
-  <div nz-col class="gutter-row" nzSpan="6">
-    <!-- Amount -->
-    <nz-form-item>
-      <nz-form-label nzFor="Matricule">Amount</nz-form-label>
-      <nz-form-control nzErrorTip="Amount Obligatoir!">
-        <input nz-input id="amount" name="amount" formControlName="amount" />
-      </nz-form-control>
-    </nz-form-item>
+    <div nz-col class="gutter-row" nzSpan="6">
+      <!-- Amount -->
+      <nz-form-item>
+        <nz-form-label nzFor="Matricule">Amount</nz-form-label>
+        <nz-form-control nzErrorTip="Amount Obligatoir!">
+          <input nz-input id="amount" name="amount" formControlName="amount" />
+        </nz-form-control>
+      </nz-form-item>
 
-    <!-- Fees-->
-    <nz-form-item>
-      <nz-form-label nzFor="cin">Fees</nz-form-label>
-      <nz-form-control nzErrorTip="Cin Obligatoir!">
-        <input nz-input id="fees" name="fees" formControlName="fees" />
-      </nz-form-control>
-    </nz-form-item>
+      <!-- Fees-->
+      <nz-form-item>
+        <nz-form-label nzFor="cin">Fees</nz-form-label>
+        <nz-form-control nzErrorTip="Cin Obligatoir!">
+          <input nz-input id="fees" name="fees" formControlName="fees" />
+        </nz-form-control>
+      </nz-form-item>
 
 
 
-  </div>
-  <div nz-col class="gutter-row" nzSpan="6">
-        <!-- Search Marchand -->
+    </div>
+    <div nz-col class="gutter-row" nzSpan="6">
+      <!-- Search Marchand -->
 
-        <nz-form-item nzFlex>
-          <nz-form-label nzRequired nzFor="nom">Marchand</nz-form-label>
+      <nz-form-item nzFlex>
+        <nz-form-label nzRequired nzFor="nom">Marchand</nz-form-label>
 
-          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Seléctionner un Marchand" formControlName="searchValue"
-            (ngModelChange)=onSearchChange($event)>
-            <nz-option *ngFor="let item of service.list" [nzLabel]="item.firstname" [nzValue]="item"></nz-option>
-          </nz-select>
-        </nz-form-item>
-    <!-- Secret Key -->
-    <!-- <nz-form-item>
+        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Seléctionner un Marchand" formControlName="searchValue"
+          (ngModelChange)=onSearchChange($event)>
+          <nz-option *ngFor="let item of service.list" [nzLabel]="item.lastname+' '+item.firstname"
+            [nzValue]="item.idMerchant"></nz-option>
+        </nz-select>
+      </nz-form-item>
+      <!-- Secret Key -->
+      <!-- <nz-form-item>
         <nz-form-label nzFor="nom">Code Sécurité</nz-form-label>
         <nz-form-control nzErrorTip="secret_code Obligatoir!">
           <input nz-input id="secret_code" name="=secret_code" [(ngModel)]="secret_code" />
         </nz-form-control>
       </nz-form-item> -->
-    <!-- Code Marchand -->
-    <nz-form-item>
+      <!-- Code Marchand -->
+      <!-- <nz-form-item>
       <nz-form-label nzFor="nom">Code Marchand</nz-form-label>
       <nz-form-control nzErrorTip="Nom Obligatoir!">
         <input nz-input id="marchand_code" name="=marchand_code" formControlName="marchand_code" />
       </nz-form-control>
-    </nz-form-item>
+    </nz-form-item> -->
+    </div>
   </div>
-</div>
   <!-- BUTTON ADD -->
   <div nz-row nzJustify="center">
     <div nz-col nzSpan="6">
@@ -72,31 +73,28 @@
   <thead>
     <tr>
       <th nzLeft>Marchand</th>
-      <th>Date</th>
-      <th>Montant</th>
-      <th>status</th>
-      <th nzRight>Action</th>
+      <th>Amount</th>
+      <th>Token</th>
+      <th nzRight>status</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let data of Pservice.list">
-      <td>{{  data.marchand_code }}</td>
-      <td nzLeft>{{data.date_expiration }}</td>
+      <td>{{data.merchant?.firstname + ' ' + data.merchant?.lastname }}</td>
       <td>{{  data.amount }}</td>
-      <td nzRight>{{  data.amount }}</td>
+      <td>{{data.token }}</td>
       <td nzRight>
-        <ng-container *ngIf="data.amount == 0">
-          <button  class="notPaid" nz-button nzType="default">Pas encore</button>
+        <ng-container *ngIf="data.status == false">
+          <button class="notPaid" nz-button nzType="default">En cours</button>
 
         </ng-container>
-        <ng-container *ngIf="data.amount > 0">
-          <button  class="Paid" nz-button nzType="default">Payé</button>
+        <ng-container *ngIf="data.status == true">
+          <button class="Paid" nz-button nzType="default">Payé</button>
         </ng-container>
 
-      </td>
 
-      <!-- <td>{{data.statue }}</td> -->
-      <!-- <td nzRight>
+        <!-- <td nzRight>{{data.status}}</td>  -->
+        <!-- <td nzRight>
         <a>action</a>
       </td> -->
     </tr>
