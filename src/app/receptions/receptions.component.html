@@ -19,9 +19,6 @@
           <input nz-input id="fees" name="fees" formControlName="fees" />
         </nz-form-control>
       </nz-form-item>
-
-
-
     </div>
     <div nz-col class="gutter-row" nzSpan="6">
       <!-- Search Marchand -->
@@ -81,7 +78,7 @@
   <tbody>
     <tr *ngFor="let data of Pservice.list">
       <td>{{data.merchant?.firstname + ' ' + data.merchant?.lastname }}</td>
-      <td>{{  data.amount }}</td>
+      <td>{{data.amount }}</td>
       <td>{{data.token }}</td>
       <td nzRight>
         <ng-container *ngIf="data.status == false">
@@ -91,8 +88,6 @@
         <ng-container *ngIf="data.status == true">
           <button class="Paid" nz-button nzType="default">Payé</button>
         </ng-container>
-
-
         <!-- <td nzRight>{{data.status}}</td>  -->
         <!-- <td nzRight>
         <a>action</a>

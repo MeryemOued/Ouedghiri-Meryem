@@ -19,6 +19,6 @@ export class Marchand {
     monthly?: number=0;
     // service?: string="";
     Attachment?: string;
-    platform :Platform;
+    platforms :Platform;
     // pj?: string="";
 }

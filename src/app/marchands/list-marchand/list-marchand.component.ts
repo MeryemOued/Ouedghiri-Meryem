@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Marchand } from 'src/app/shared/marchand.model';
 import { MarchandService } from 'src/app/shared/marchand.service';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { Platform } from 'src/app/shared/model/platform';
 
 @Component({
   selector: 'app-list-marchand',
@@ -32,13 +33,10 @@ export class ListMarchandComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.refreshTable();
-    this.Form = this.fb.group({
-      // phoneNumberPrefix: ['+212'],
-   
-    
+    this.service.refreshPlatform();
+    this.Form = this.fb.group({   
       nom: "",
-     
-
+      Platforms :new Platform(),
     });
   }
 
@@ -62,13 +60,6 @@ export class ListMarchandComponent implements OnInit {
   // SERACH
   copylistOfData = this.service.list;
 ;
-//   search(){
-
-//     this.service.list =this.service.list.filter(res=>{                                              
-//     return res.nom.toLocaleLowerCase().match(this.Form.controls['nom'].value.toLocaleLowerCase())
-//  })
-
-//  }
 visible = false;
 
 open(row :any): void {
@@ -90,9 +81,9 @@ showModal(row:any): void {
 
 handleOk(row:any,id:any): void {
   console.log(id)
-  // this.service.downloadfile(row,id);
+  //this.service.downloadfile(row,id);
   console.log('Button ok clicked!');
-  // this.isVisible = false;
+  //this.isVisible = false;
 
 }
 

@@ -155,6 +155,8 @@ export class AddMarchandComponent implements OnInit {
 
     this.service.createService(this.Form.value).subscribe((res) => {
       console.log('post return');
+      console.log(this.Form.value);
+      console.log(res);
 
     });
   }
@@ -181,6 +183,7 @@ export class AddMarchandComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.service.refreshTable();
     this.service.refreshPlatform();
     this.service.refreshActivity();
@@ -193,7 +196,6 @@ export class AddMarchandComponent implements OnInit {
         console.log(this.dataform);
         this.Form = this.fb.group({
           idMerchant: this.dataform.idMerchant,
-      
           searchValue: '',
           searchValues: '',
           phoneNumber: this.dataform.phoneNumber,
@@ -217,7 +219,6 @@ export class AddMarchandComponent implements OnInit {
       phoneNumberPrefix: ['+212'],
       searchValue: '',
       searchValues:'',
-      // request_id:[null, [Validators.required]],
       phoneNumber: [null, [Validators.required]],
       lastname: [null, [Validators.required]],
       firstname: [null, [Validators.required]],
@@ -226,25 +227,8 @@ export class AddMarchandComponent implements OnInit {
       cin: [null, [Validators.required]],
       childrenNumber: [0, [Validators.required]],
       dateBirth: [null],
-      Platform : new Platform(),
+      platforms : new Platform(),
 
-    });
-    this.FormAttachement = this.fb.group({
-      IdAttachement: 0,
-      // IdMerchant:0,
-      BaseUrl: [null, [Validators.required]],
-    });
-
-    this.FormPlatform = this.fb.group({
-      idActivity: 0,
-      // IdMerchant:0,
-      label: [null, [Validators.required]],
-    });
-
-    this.FormActivity = this.fb.group({
-      idActivity: 0,
-      // IdMerchant:0,
-      label: [null, [Validators.required]],
     });
   }
 
