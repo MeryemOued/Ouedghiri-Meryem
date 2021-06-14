@@ -19,7 +19,12 @@ export class AuthentificationService {
       this.router.navigate(['addmarchand']);
       return true;
     }
+    else
     this.isAuthenticated = false;
+    console.log("ddd")
+
+    this.router.navigate(['listmarchand']);
+
     return false;
   }
 

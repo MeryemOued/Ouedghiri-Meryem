@@ -19,13 +19,13 @@
   <nz-table #fixedTable [nzData]="service.list" [nzScroll]="{ x: '1150px', y: '440px' }">
     <thead>
       <tr>
-        <th nzWidth="180px">Details</th>
+        <th nzWidth="220px">Details</th>
         <th>Matricule</th>
         <th>CIN</th>
         <th>N° Telephone</th>
         <!-- <th>Activiteùr</th> -->
-        <th>Status</th>
-        <th>Solde</th>
+        <th>Platform</th>
+        <th>Activiter</th>
         <!-- <th>Service</th> -->
         <th nzWidth="80px">Action</th>
 
@@ -35,7 +35,7 @@
       <tr *ngFor="let data of (service.list|pipefilter:matricule)">
 
         <td nzLeft> <a (click)="open(data)">
-            <nz-avatar nzIcon="user"></nz-avatar> {{ data?.firstname }}
+            <nz-avatar nzIcon="user"></nz-avatar> {{ data?.firstname +' '+data?.lastname }}
           </a>
           <nz-drawer [nzVisible]="visible" [nzWidth]="640" [nzClosable]="false" (nzOnClose)="close()">
             <ng-container *nzDrawerContent>
@@ -92,7 +92,7 @@
         <td>{{ data.phoneNumber }}</td>
         <!-- <td>{{ data.activiter }}</td> -->
         <td>{{data.platforms?.label }}</td>
-        <td>{{ data.monthly }}</td>
+        <td>{{ data.activities?.label }}</td>
         <!-- <td>{{ data.service }}</td> -->
         <td nzRight>
           <!-- <a (click)="showModal(data)" style="margin-right: 5px" ><i nz-icon nzType="eye" nzTheme="outline"></i></a>

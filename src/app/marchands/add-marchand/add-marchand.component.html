@@ -1,27 +1,30 @@
 <form nz-form [nzLayout]="'vertical'" autocomplete="off" #form="ngForm" (ngSubmit)="onSubmit()" [formGroup]="Form">
   <div nz-row [nzGutter]="{ xs: 8, sm: 6, md: 24, lg: 32 }">
-    <div nz-col class="gutter-row" nzSpan="6" style="margin-top: 100px;">
+  
+    <div nz-col class="gutter-row" nzSpan="6" style="
+    
+    margin-right: 99px;  margin-left: 20px; ">
 
 
-      <img nz-image zFlex="auto" nzSrc="assets/crud.png" alt="" style="  max-width: 100%;
+      <img nz-image zFlex="auto" nzSrc="assets/AddMerchant.png" alt="" style="  max-width: 100%;
         max-height: 100%;" />
     </div>
 
 
-    <div nz-col class="gutter-row" nzSpan="6">
+    <div nz-col class="gutter-row" nzSpan="4">
 
       <!-- Nom  -->
       <nz-form-item>
         <nz-form-label nzRequired nzFor="nom">Nom</nz-form-label>
         <nz-form-control nzErrorTip="Nom Obligatoir!">
-          <input nz-input id="Lastname" name="lastname" formControlName="lastname" />
+          <input nz-input id="lastname" name="Lastname" formControlName="lastname" />
         </nz-form-control>
       </nz-form-item>
       <!-- Matricule -->
       <nz-form-item>
         <nz-form-label nzRequired nzFor="Matricule">Matricule</nz-form-label>
         <nz-form-control nzErrorTip="Nom Obligatoir!">
-          <input nz-input id="Matricule" name="Matricule" formControlName="matricule" />
+          <input nz-input id="Matricule" name="matricule" formControlName="matricule" />
         </nz-form-control>
       </nz-form-item>
 
@@ -29,7 +32,7 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="cin">CIN</nz-form-label>
         <nz-form-control nzErrorTip="Cin Obligatoir!">
-          <input nz-input id="Cin" name="Cin" formControlName="cin" />
+          <input nz-input id="cin" name="cin" formControlName="cin" />
         </nz-form-control>
       </nz-form-item>
       <!-- TEL -->
@@ -50,20 +53,19 @@
       <nz-form-item nzFlex>
         <nz-form-label nzRequired nzFor="nom">Platfrom</nz-form-label>
 
-        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Seléctionner un Platform" formControlName="searchValue"
-          (ngModelChange)=onSearchChange($event)>
+        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Seléctionner un Platform" formControlName="idPlatform">
           <nz-option *ngFor="let item of service.listPlatform" [nzLabel]="item.label"
             [nzValue]="item.idPlatform"></nz-option>
         </nz-select>
       </nz-form-item>
 
     </div>
-    <div nz-col class="gutter-row" nzSpan="6">
+    <div nz-col class="gutter-row" nzSpan="4">
       <!-- Nom Complet -->
       <nz-form-item>
         <nz-form-label nzRequired nzFor="nom">Prenom</nz-form-label>
         <nz-form-control nzErrorTip="Nom Obligatoir!">
-          <input nz-input id="Firstname" name="=firstname" formControlName="firstname" />
+          <input nz-input id="firstname" name="=firstname" formControlName="firstname" />
         </nz-form-control>
       </nz-form-item>
 
@@ -98,8 +100,7 @@
       <nz-form-item nzFlex>
         <nz-form-label nzRequired nzFor="nom">Activiter</nz-form-label>
 
-        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Seléctionner une Activiter" formControlName="searchValues"
-          (ngModelChange)=onSearchChanges($event)>
+        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Seléctionner une Activiter" formControlName="idActivity">
           <nz-option *ngFor="let item of service.listActivity" [nzLabel]="item.label" [nzValue]="item.idActivity">
           </nz-option>
         </nz-select>
@@ -108,14 +109,15 @@
 
 
     </div>
-
-    <div class="gutter-row" nzSpan="4" nz-row nzJustify="space-around" nzAlign="middle">
+    <div nz-col class="gutter-row" nzSpan="4" nzJustify="center"  style="padding-left: 101px !important;
+    margin-top: 159px;">
+    <div class="gutter-row" nzSpan="6" nz-row >
 
       <div class="row" style="margin-bottom:15px;">
         <div class="col-md-3">
           <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;"
             multiple accept=".png, .jpg, .jpeg">
-          <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
+          <button type="button" class="btn btn-success" (click)="file.click()">Ajouter des pieces Joints</button>
         </div>
         <div class="col-md-4">
           <span class="upload" *ngIf="progress > 0">
@@ -127,7 +129,7 @@
         </div>
       </div>
     </div>
-
+    </div>
   </div>
 
   <!-- BUTTON ADD -->

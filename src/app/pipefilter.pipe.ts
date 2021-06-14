@@ -16,12 +16,15 @@ export class PipefilterPipe implements PipeTransform {
     }
     console.log(searchValue)
     return Marchands.filter(marchand=>
+      // console.log(marchand.platforms?.label),
+      // console.log(searchValue)
+      // console.log(marchand.platforms?.idPlatform) ||
       marchand.firstname.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()) ||
       marchand.lastname.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()) ||
       marchand.matricule?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())||
-      marchand.cin?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
-      // marchand.service?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())||
-      // marchand.activiter?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
+      marchand.cin?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())||
+      marchand.platforms?.label?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())||
+      marchand.activities?.label?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()) 
     );
     
    }

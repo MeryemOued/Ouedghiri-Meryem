@@ -34,15 +34,15 @@ export class ListMarchandComponent implements OnInit {
   ngOnInit(): void {
     this.service.refreshTable();
     this.service.refreshPlatform();
+    this.service.refreshActivity();
     this.Form = this.fb.group({   
       nom: "",
-      Platforms :new Platform(),
     });
   }
 
-  EditMarchand(selectedRow: Marchand) {
-    this.service.FormData = Object.assign({}, selectedRow);
-  }
+  // EditMarchand(selectedRow: Marchand) {
+  //   this.service.FormData = Object.assign({}, selectedRow);
+  // }
   // CRUD DELETE
   deleteService(id: number = 0) {
     if (confirm('supprimer?')) {

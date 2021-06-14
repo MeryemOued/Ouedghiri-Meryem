@@ -37,14 +37,16 @@ import { Activity } from 'src/app/shared/model/activity';
 })
 export class AddMarchandComponent implements OnInit {
 
+
+  currentMerchant: Marchand;
   switchValue = true;
   date = null;
   submitted = false;
   dataform: any;
   marchand: Marchand;
-  selectedPlatform : Platform;
-  selectedActivity:Activity;
-
+  selectedPlatform : number;
+  selectedActivity: number;
+ getId :any;
   Form!: FormGroup;
   FormAttachement!: FormGroup;
   FormPlatform!: FormGroup;
@@ -109,6 +111,7 @@ export class AddMarchandComponent implements OnInit {
   }
 
   onSubmit() {
+  
     let req: any;
     for (const i in this.Form.controls) {
       this.Form.controls[i].markAsDirty();
@@ -116,8 +119,10 @@ export class AddMarchandComponent implements OnInit {
     }
 
     if (this.route.snapshot.paramMap.get('idMerchant')) {
+      console.log("Submit")
+      console.log(this.getId)
       if (this.Form.valid) {
-        const id = this.route.snapshot.paramMap.get('idMerchant');
+        // const id = this.route.snapshot.paramMap.get('idMerchant');
         this.UpdateRow();
         this.createNotification('info', 'Modifier');
         this.router.navigate(['/listmarchand']);
@@ -134,29 +139,11 @@ export class AddMarchandComponent implements OnInit {
       }
     }
   }
-  onSearchChange(value: Platform) {
-    console.log("hfhfhfhfh")
-    console.log(value)
-    this.selectedPlatform = value
-  }
-  onSearchChanges(value: Activity) {
-    console.log("accctttt")
-    console.log(value)
-    this.selectedActivity = value
-  }
   // idins : any
   // ADD-MARCHAND
   idinserted: string;
   AddMarchand() {
-    console.log(this.selectedActivity)
-    console.log("dkhl")
-    this.Form.controls["idPlatform"].setValue(this.selectedPlatform);
-    this.Form.controls["idActivity"].setValue(this.selectedActivity);
-
     this.service.createService(this.Form.value).subscribe((res) => {
-      console.log('post return');
-      console.log(this.Form.value);
-      console.log(res);
 
     });
   }
@@ -182,12 +169,42 @@ export class AddMarchandComponent implements OnInit {
     this.Form.reset();
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
 
     this.service.refreshTable();
     this.service.refreshPlatform();
     this.service.refreshActivity();
-    this.service.getPlatform();
+    // this.service.getPlatform();
+    // this.getId = this.route.snapshot.paramMap.get('idMerchant');
+    // console.log(this.getId)
+    // if (this.getId != null) {
+    //   await this.service.getIdService(this.getId).toPromise().then((res) => {
+    //     console.log(res)
+    //     this.currentMerchant = res as Marchand;
+    //   });
+    //   this.Form = this.fb.group({
+    //     idMerchant: this.currentMerchant.idMerchant,
+  
+    //     phoneNumber: this.currentMerchant.phoneNumber,
+    //     phoneNumberPrefix: ['+212'],
+    //     firstname: this.currentMerchant,
+    //     lastname: this.currentMerchant.lastname,
+    //     matricule: this.currentMerchant.matricule,
+    //     address: this.currentMerchant.Address,
+    //     cin: this.currentMerchant.cin,
+    //     childrenNumber: this.currentMerchant.childrenNumber,
+    //     dateBirth: this.currentMerchant.dateBirth,
+    //   });
+    //   console.log(this.currentMerchant)
+    // }
+    // else{
+    //   console.log("ADDNew ")
+
+    //   console.log(this.currentMerchant)
+    //   // this.createForm();
+
+    // }
+
     const id = this.route.snapshot.paramMap.get('idMerchant');
     if (id != null) {
       this.service.getIdService(id).subscribe((res) => {
@@ -196,6 +213,8 @@ export class AddMarchandComponent implements OnInit {
         console.log(this.dataform);
         this.Form = this.fb.group({
           idMerchant: this.dataform.idMerchant,
+          idPlatform : this.dataform.idPlatform,
+          idActivity :this.dataform.idActivity,
           searchValue: '',
           searchValues: '',
           phoneNumber: this.dataform.phoneNumber,
@@ -207,6 +226,10 @@ export class AddMarchandComponent implements OnInit {
           cin: this.dataform.cin,
           childrenNumber: this.dataform.childrenNumber,
           dateBirth: this.dataform.dateBirth,
+          // Platform : this.dataform.platforms,
+          activity : this.dataform.activity?.label,
+          Platform : this.dataform.platforms,
+          
         });
       });
       console.log('update');
@@ -219,6 +242,7 @@ export class AddMarchandComponent implements OnInit {
       phoneNumberPrefix: ['+212'],
       searchValue: '',
       searchValues:'',
+      //request_id:[null, [Validators.required]],
       phoneNumber: [null, [Validators.required]],
       lastname: [null, [Validators.required]],
       firstname: [null, [Validators.required]],
@@ -227,8 +251,26 @@ export class AddMarchandComponent implements OnInit {
       cin: [null, [Validators.required]],
       childrenNumber: [0, [Validators.required]],
       dateBirth: [null],
-      platforms : new Platform(),
+      Platform : new Platform(),
 
+    });
+  }
+
+  createForm() {
+    console.log(this.currentMerchant.lastname)
+    console.log(this.currentMerchant.firstname)
+    this.Form = this.fb.group({
+      idMerchant: [this.currentMerchant?.idMerchant],
+      idPlatform : 0,
+      idActivity :0,
+      phoneNumber: [this.currentMerchant?.phoneNumber, [Validators.required]],
+      lastname: ['', [Validators.required]],
+      firstname: [this.currentMerchant?.firstname, [Validators.required]],
+      matricule: [this.currentMerchant?.matricule, [Validators.required]],
+      address: [this.currentMerchant?.Address, [Validators.required]],
+      cin: [this.currentMerchant?.cin, [Validators.required]],
+      childrenNumber: [this.currentMerchant?.childrenNumber, [Validators.required]],
+      dateBirth: [this.currentMerchant?.dateBirth]
     });
   }
 
